@@ -1,0 +1,30 @@
+---
+title: Learning about Kubernetes
+description: >-
+  Recently I read a very good overview of Kubernetes architecture by Julia
+  Evans.
+date: '2022-11-17T06:52:40.931Z'
+categories: []
+keywords: []
+slug: /@pengbintech/learning-about-kubernetes-299921ac3bfb
+---
+
+Recently I read a very good [overview](https://developer.ibm.com/articles/a-tour-of-the-kubernetes-source-code/) of Kubernetes architecture by Julia Evans.
+
+The 5 most important components in Kubernetes are:
+
+*   etcd
+*   the API server
+*   the scheduler
+*   kubelets on every node
+*   the controller manager
+
+etcd is the central place where other components check what they have to do and it also stores the states of other components.
+
+The API server is the interface to send what have to do into etcd.
+
+The schedule is to assign a pod a machine to run on based on what have to do in etcd.
+
+kubelets on every node actually execute pods to do the stuff.
+
+The controller manager is used to set up daemonsets.

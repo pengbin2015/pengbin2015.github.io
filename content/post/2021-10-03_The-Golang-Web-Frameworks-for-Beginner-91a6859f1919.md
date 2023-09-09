@@ -1,0 +1,18 @@
+---
+title: The Golang Web Frameworks for Beginner
+description: >-
+  There are many web frameworks in Golang. As I know, there are at least 11 web
+  frameworks that the Golang developers are frequently using…
+date: '2021-10-03T07:52:31.571Z'
+categories: []
+keywords: []
+slug: /@pengbintech/the-golang-web-frameworks-for-beginner-91a6859f1919
+---
+
+There are many web frameworks in Golang. As I know, there are at least 11 web frameworks that the Golang developers are frequently using for their projects. For example, Gin, Beego, Kit, Echo, FastHttp, Fiber, Mux, Kratos, Httprouter, Revel, Go-zero, Martini, and etc.
+
+For beginners, the abundance of choices makes them difficult to decide which web framework to use. To help solve this problem, I would suggest the beginners first learn **Gin web framework**, and then **Beego web frameworks**. The reasons are that Gin is simple and easy to learn, and it provides rich documentation. Once the developers master Gin, if they want to build REST API, web application, or backend services faster, they can learn Beego which will save them a lot of development time.
+
+Gin is the most popular framework with a performance advantage. It is said that it is up to 40 times faster than another well-known web framework. Since it supports the most essential libraries and features, it is the most suitable framework to develop high-performance REST APIs. However, it may be not suitable to develop a large and complex enterprise-level application.
+
+Beego is a rapid web app development framework, which follows a model-view-controller pattern. This framework has many similarities with Django, which is a web framework in the Python programming language. It doesn’t require third-party library installations, and integrate the Object-Relationship Map (ORM) and build-in cache handler. Of course, it is not so suitable for beginners.
