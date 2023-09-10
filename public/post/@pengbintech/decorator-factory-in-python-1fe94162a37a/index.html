@@ -53,7 +53,7 @@
   
 
   
-  <header class="cover bg-top" style="background-image: url('https://pengbin.org/img/home-bg-valley.jpg');">
+  <header class="cover bg-top" style="background-image: url('/post/@pengbintech/decorator-factory-in-python-1fe94162a37a/neom.jpg');">
     <div class="bg-black-60">
       <nav class="pv3 ph3 ph4-ns" role="navigation">
   <div class="flex-l justify-between items-center center">
@@ -75,26 +75,20 @@
           </li>
           
           <li class="list f5 f4-ns fw4 dib pr3">
-            <a class="hover-white no-underline white-90" href="/about" title="About page">
-              About
-            </a>
-          </li>
-          
-          <li class="list f5 f4-ns fw4 dib pr3">
-            <a class="hover-white no-underline white-90" href="/contact/" title="Contact page">
-              Contact
-            </a>
-          </li>
-          
-          <li class="list f5 f4-ns fw4 dib pr3">
             <a class="hover-white no-underline white-90" href="/post/" title="Posts page">
               Posts
             </a>
           </li>
           
           <li class="list f5 f4-ns fw4 dib pr3">
-            <a class="hover-white no-underline white-90" href="/search/" title="Searches page">
-              Searches
+            <a class="hover-white no-underline white-90" href="/contact" title="Contact page">
+              Contact
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about" title="About page">
+              About
             </a>
           </li>
           
@@ -148,13 +142,6 @@
 
       <div class="tc-l pv6 ph3 ph4-ns">
         
-          <div class="f2 f1-l fw2 white-90 mb0 lh-title">Decorator Factory in Python</div>
-          
-            <div class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">
-              When studying the open source project ‘langchain’, I came across an intriguing function: xor_args(), found in the file…
-            </div>
-          
-        
       </div>
     </div>
   </header>
@@ -171,103 +158,84 @@
         POSTS
       </aside>
       
-
-
-
-
-
-
-
-
-
-
-  <div id="sharing" class="mt3 ananke-socials">
-    
-      
-      <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://pengbin.org/post/@pengbintech/decorator-factory-in-python-1fe94162a37a/&amp;title=Decorator%20Factory%20in%20Python" class="ananke-social-link linkedin no-underline" aria-label="share on LinkedIn">
-        
-        <span class="icon"> <svg style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
-</svg>
-</span>
-        
-      </a>
-    
-      
-      <a href="https://twitter.com/share?url=https://pengbin.org/post/@pengbintech/decorator-factory-in-python-1fe94162a37a/&amp;text=Decorator%20Factory%20in%20Python" class="ananke-social-link twitter no-underline" aria-label="share on Twitter">
-        
-        <span class="icon"> <svg style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
-</span>
-        
-      </a>
-    
-  </div>
-
-
       <h1 class="f1 athelas mt3 mb1">Decorator Factory in Python</h1>
       
-      <p class="tracked">
-        By <strong>Peng Bin</strong>
-      </p>
-      
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2023-06-02T13:39:06Z">2. June 2023</time>
-      
 
+      <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+        <tbody>
+          <tr>
+            <td>
+              <p class="tracked">
+                By <strong>Peng Bin</strong>   
+              </p>
+            </td>
+            <td align="right">
+              
+              
+              
+              <time class="f6 mv4 dib tracked" datetime="2023-06-02T13:39:06Z">2. June 2023</time>
+              
+            </td>
+          </tr>
+      </table>
       
+      <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><ul class="pa0">
+  
+</ul>
+
       
     </header>
+
     <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>When studying the open source project ‘langchain’, I came across an intriguing function: <em>xor_args()</em>, found in the file ‘<em>langchain/utils.py</em>’. This function is an example of a Decorator Factory, a more advanced concept in Python.</p>
-<p>def xor_args(*arg_groups: Tuple[str, &hellip;]) -&gt; Callable:<br>
-&ldquo;&ldquo;&ldquo;Validate specified keyword args are mutually exclusive.&rdquo;&rdquo;&rdquo;</p>
-<pre><code>def decorator(func: Callable) -&gt; Callable:  
-    def wrapper(\*args: Any, \*\*kwargs: Any) -&gt; Callable:  
-        &quot;&quot;&quot;Validate exactly one arg in each group is not None.&quot;&quot;&quot;  
-        counts = \[  
-            sum(1 for arg in arg\_group if kwargs.get(arg) is not None)  
-            for arg\_group in arg\_groups  
-        \]  
-        invalid\_groups = \[i for i, count in enumerate(counts) if count != 1\]  
-        if invalid\_groups:  
-            invalid\_group\_names = \[&quot;, &quot;.join(arg\_groups\[i\]) for i in invalid\_groups\]  
-            raise ValueError(  
-                &quot;Exactly one argument in each of the following&quot;  
-                &quot; groups must be defined:&quot;  
-                f&quot; {', '.join(invalid\_group\_names)}&quot;  
-            )  
-        return func(\*args, \*\*kwargs)  
+<pre tabindex="0"><code>def xor\_args(\*arg\_groups: Tuple\[str, ...\]) -&gt; Callable:
+    &#34;&#34;&#34;Validate specified keyword args are mutually exclusive.&#34;&#34;&#34;
 
-    return wrapper  
+    def decorator(func: Callable) -&gt; Callable:
+        def wrapper(\*args: Any, \*\*kwargs: Any) -&gt; Callable:
+            &#34;&#34;&#34;Validate exactly one arg in each group is not None.&#34;&#34;&#34;
+            counts = \[
+                sum(1 for arg in arg\_group if kwargs.get(arg) is not None)
+                for arg\_group in arg\_groups
+            \]
+            invalid\_groups = \[i for i, count in enumerate(counts) if count != 1\]
+            if invalid\_groups:
+                invalid\_group\_names = \[&#34;, &#34;.join(arg\_groups\[i\]) for i in invalid\_groups\]
+                raise ValueError(
+                    &#34;Exactly one argument in each of the following&#34;
+                    &#34; groups must be defined:&#34;
+                    f&#34; {&#39;, &#39;.join(invalid\_group\_names)}&#34;
+                )
+            return func(\*args, \*\*kwargs)
 
-return decorator
-</code></pre>
-<p>Firstly, let’s understand what a Decorator is in Python. A decorator is a function that modifies or enhances the behavior of another function. For instance, consider this example:</p>
-<p>@uppercase<br>
-def say_hello():<br>
-return &ldquo;Hello World!&rdquo;</p>
-<p>Here, @uppercase is a decorator which alters the function ‘<em>say_hello()</em>’, resulting in the string “HELLO WORLD!”. This decorator is implemented via an enclosed wrapper function as shown below:</p>
-<p>def uppercase(function):<br>
-def wrapper():<br>
-func = function()<br>
-string_uppercase = func.upper()<br>
-return string_uppercase<br>
-return wrapper</p>
-<p>However, this decorator has a limitation: it doesn&rsquo;t allow passing parameters into the decorated function. This is where Decorator Factories come in.</p>
+        return wrapper
+
+    return decorator
+</code></pre><p>Firstly, let’s understand what a Decorator is in Python. A decorator is a function that modifies or enhances the behavior of another function. For instance, consider this example:</p>
+<pre tabindex="0"><code>@uppercase
+def say_hello():
+ return &#34;Hello World!&#34;
+</code></pre><p>Here, @uppercase is a decorator which alters the function ‘<em>say_hello()</em>’, resulting in the string “HELLO WORLD!”. This decorator is implemented via an enclosed wrapper function as shown below:</p>
+<pre tabindex="0"><code>def uppercase(function):
+ def wrapper():
+ func = function()
+ string_uppercase = func.upper()
+ return string_uppercase
+ return wrapper
+</code></pre><p>However, this decorator has a limitation: it doesn&rsquo;t allow passing parameters into the decorated function. This is where Decorator Factories come in.</p>
 <p>A Decorator Factory differs from a decorator in that it returns a decorator, not just a function. Let’s modify the ‘<em>uppercase</em>’ decorator to accept parameters:</p>
-<p>def uppercase(username):<br>
-def decorating(fn):<br>
-def wrapper():<br>
-func = function()<br>
-string_uppercase = func.upper()<br>
-return f&quot;{string_uppercase}, {username}&quot;<br>
-return wrapper<br>
-return decorating</p>
-<p>Applying the decorator factory to ‘<em>say_hello()</em>’ would look like this.</p>
-<p>@uppercase(&ldquo;David&rdquo;)<br>
-def say_hello():<br>
-return &ldquo;Hello World!&rdquo;</p>
-<p>The function ‘<em>say_hello()</em>’ will now return the string “HELLO WORLD! David”.</p>
+<pre tabindex="0"><code>def uppercase(username):
+ def decorating(fn):
+ def wrapper():
+ func = function()
+ string_uppercase = func.upper()
+ return f&#34;{string_uppercase}, {username}&#34;
+ return wrapper
+ return decorating
+</code></pre><p>Applying the decorator factory to ‘<em>say_hello()</em>’ would look like this.</p>
+<pre tabindex="0"><code>@uppercase(&#34;David&#34;)
+def say_hello():
+ return &#34;Hello World!&#34;
+</code></pre><p>The function ‘<em>say_hello()</em>’ will now return the string “HELLO WORLD! David”.</p>
 <p>Having understood the Decorator Factory in Python, let’s now revisit the function ‘<em>xor_args()</em>’.</p>
 <ol>
 <li><code>xor_args(*arg_groups: Tuple[str, ...]) -&gt; Callable:</code> - This is the definition of the decorator factory function <code>xor_args</code>. It takes one or more tuples of strings as its input arguments. Each tuple represents a group of keyword arguments.</li>
@@ -278,9 +246,6 @@ return &ldquo;Hello World!&rdquo;</p>
 <li>If there is no invalid group, it calls the original function <code>func</code> with the provided arguments and keyword arguments and returns the result.</li>
 </ol>
 <p>By using this Decorator Factory, we can easily enforce complex conditions on the arguments of a function, ensuring that our code is both efficient and easy to read.</p>
-<ul class="pa0">
-  
-</ul>
 <div class="mt6 instapaper_ignoref">
       
         <div id="disqus_thread"></div>

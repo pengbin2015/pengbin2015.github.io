@@ -82,26 +82,20 @@
           </li>
           
           <li class="list f5 f4-ns fw4 dib pr3">
-            <a class="hover-white no-underline white-90" href="/about" title="About page">
-              About
-            </a>
-          </li>
-          
-          <li class="list f5 f4-ns fw4 dib pr3">
-            <a class="hover-white no-underline white-90" href="/contact/" title="Contact page">
-              Contact
-            </a>
-          </li>
-          
-          <li class="list f5 f4-ns fw4 dib pr3">
             <a class="hover-white no-underline white-90" href="/post/" title="Posts page">
               Posts
             </a>
           </li>
           
           <li class="list f5 f4-ns fw4 dib pr3">
-            <a class="hover-white no-underline white-90" href="/search/" title="Searches page">
-              Searches
+            <a class="hover-white no-underline white-90" href="/contact" title="Contact page">
+              Contact
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about" title="About page">
+              About
             </a>
           </li>
           
@@ -202,10 +196,12 @@
   <div class="db pv4 ph3 ph0-l no-underline dark-gray">
     <div class="flex flex-column flex-row-ns">
       
+      
+      
           
         <div class="pr3-ns mb4 mb0-ns w-100 w-40-ns">
           <a href="/post/@pengbintech/infrastructure-as-code-tools-726fc4a38237/" class="db grow">
-            <img src="https://pengbin.org/img/home-bg-valley.jpg" class="img" alt="image from Infrastructure as Code Tools">
+            <img src="/post/@pengbintech/infrastructure-as-code-tools-726fc4a38237/notebook.jpg" class="img" alt="image from Infrastructure as Code Tools">
           </a>
         </div>
       
@@ -220,13 +216,12 @@
 There are numerous tools designed to aid in IaC. These can be grouped into five categories:
 Ad hoc scripts Configuration management tools Server templating tools Orchestration tools Provisioning tools Ad hoc scripts Ad hoc scripts are a straightforward method for automating tasks or configuring tools.
         </div>
-          <a href="/post/@pengbintech/infrastructure-as-code-tools-726fc4a38237/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">Read more about this entry</a>
+          <a href="/post/@pengbintech/infrastructure-as-code-tools-726fc4a38237/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">Read more ...</a>
         
       </div>
     </div>
   </div>
 </article>
-
           </div>
         
           <div class="relative w-100 mb4">
@@ -235,10 +230,12 @@ Ad hoc scripts Configuration management tools Server templating tools Orchestrat
   <div class="db pv4 ph3 ph0-l no-underline dark-gray">
     <div class="flex flex-column flex-row-ns">
       
+      
+      
           
         <div class="pr3-ns mb4 mb0-ns w-100 w-40-ns">
           <a href="/post/@pengbintech/decorator-factory-in-python-1fe94162a37a/" class="db grow">
-            <img src="https://pengbin.org/img/home-bg-valley.jpg" class="img" alt="image from Decorator Factory in Python">
+            <img src="/post/@pengbintech/decorator-factory-in-python-1fe94162a37a/neom.jpg" class="img" alt="image from Decorator Factory in Python">
           </a>
         </div>
       
@@ -250,17 +247,14 @@ Ad hoc scripts Configuration management tools Server templating tools Orchestrat
         </h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
           When studying the open source project ‘langchain’, I came across an intriguing function: xor_args(), found in the file ‘langchain/utils.py’. This function is an example of a Decorator Factory, a more advanced concept in Python.
-def xor_args(*arg_groups: Tuple[str, &hellip;]) -&gt; Callable:
-&ldquo;&ldquo;&ldquo;Validate specified keyword args are mutually exclusive.&rdquo;&rdquo;&rdquo;
-def decorator(func: Callable) -&gt; Callable: def wrapper(\*args: Any, \*\*kwargs: Any) -&gt; Callable: &quot;&quot;&quot;Validate exactly one arg in each group is not None.&quot;&quot;&quot; counts = \[ sum(1 for arg in arg\_group if kwargs.
+def xor\_args(\*arg\_groups: Tuple\[str, ...\]) -&gt; Callable: &#34;&#34;&#34;Validate specified keyword args are mutually exclusive.&#34;&#34;&#34; def decorator(func: Callable) -&gt; Callable: def wrapper(\*args: Any, \*\*kwargs: Any) -&gt; Callable: &#34;&#34;&#34;Validate exactly one arg in each group is not None.&#34;&#34;&#34; counts = \[ sum(1 for arg in arg\_group if kwargs.
         </div>
-          <a href="/post/@pengbintech/decorator-factory-in-python-1fe94162a37a/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">Read more about this entry</a>
+          <a href="/post/@pengbintech/decorator-factory-in-python-1fe94162a37a/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">Read more ...</a>
         
       </div>
     </div>
   </div>
 </article>
-
           </div>
         
           <div class="relative w-100 mb4">
@@ -268,6 +262,8 @@ def decorator(func: Callable) -&gt; Callable: def wrapper(\*args: Any, \*\*kwarg
 <article class="bb b--black-10">
   <div class="db pv4 ph3 ph0-l no-underline dark-gray">
     <div class="flex flex-column flex-row-ns">
+      
+      
       
           
         <div class="pr3-ns mb4 mb0-ns w-100 w-40-ns">
@@ -284,26 +280,14 @@ def decorator(func: Callable) -&gt; Callable: def wrapper(\*args: Any, \*\*kwarg
         </h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
           When I tried to use the command “poetry install -E all” for the LangChain project based on the web page (https://github.com/hwchase17/langchain/blob/master/.github/CONTRIBUTING.md), I received an error like this:
-Installing torch (1.13.1): Failed
-RuntimeError
-Unable to find installation candidates for torch (1.13.1)
-at venv/lib/python3.11/site-packages/poetry/installation/chooser.py:109 in choose_for
-105│
-106│ links.append(link)
-107│
-108│ if not links:
-→ 109│ raise RuntimeError(f&quot;Unable to find installation candidates for {package}&quot;)
-110│
-111│ # Get the best link
-112│ chosen = max(links, key=lambda link: self.
+Installing torch (1.13.1): Failed RuntimeError Unable to find installation candidates for torch (1.13.1) at venv/lib/python3.11/site-packages/poetry/installation/chooser.py:109 in choose\_for 105│ 106│ links.append(link) 107│ 108│ if not links: → 109│ raise RuntimeError(f&#34;Unable to find installation candidates for {package}&#34;) 110│ 111│ \# Get the best link 112│ chosen = max(links, key=lambda link: self.
         </div>
-          <a href="/post/@pengbintech/torch-package-error-when-install-langchain-175c00672df4/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">Read more about this entry</a>
+          <a href="/post/@pengbintech/torch-package-error-when-install-langchain-175c00672df4/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">Read more ...</a>
         
       </div>
     </div>
   </div>
 </article>
-
           </div>
         
       </section>
@@ -322,18 +306,6 @@ at venv/lib/python3.11/site-packages/poetry/installation/chooser.py:109 in choos
           <h2 class="f5 fw4 mb4 dib mr3">
             <a href="/post/@pengbintech/the-golang-web-frameworks-for-beginner-91a6859f1919/" class="link black dim">
               The Golang Web Frameworks for Beginner
-            </a>
-          </h2>
-        
-          <h2 class="f5 fw4 mb4 dib mr3">
-            <a href="/2018/06/04/introducing-the-istio-v1alpha3-routing-api/" class="link black dim">
-              Istio v1aplha3 routing API介绍(译文）
-            </a>
-          </h2>
-        
-          <h2 class="f5 fw4 mb4 dib mr3">
-            <a href="/2018/06/02/istio08/" class="link black dim">
-              Istio 0.8 Release发布
             </a>
           </h2>
         
