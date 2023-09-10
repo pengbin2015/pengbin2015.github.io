@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://pengbin.org/</loc>
-    <lastmod>2023-08-21T03:47:03+00:00</lastmod>
+    <lastmod>2023-09-10T22:20:47+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -18,7 +18,7 @@
                 />
   </url><url>
     <loc>https://pengbin.org/post/</loc>
-    <lastmod>2023-08-21T03:47:03+00:00</lastmod>
+    <lastmod>2023-09-10T22:20:47+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -31,6 +31,56 @@
                 hreflang="en"
                 href="https://pengbin.org/post/"
                 />
+  </url><url>
+    <loc>https://pengbin.org/tags/end-to-end-test/</loc>
+    <lastmod>2023-09-10T22:20:47+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://pengbin.org/tags/integration-test/</loc>
+    <lastmod>2023-09-10T22:20:47+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://pengbin.org/tags/</loc>
+    <lastmod>2023-09-10T22:20:47+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://pengbin.org/zh/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pengbin.org/tags/"
+                />
+  </url><url>
+    <loc>https://pengbin.org/tags/terraform/</loc>
+    <lastmod>2023-09-10T22:20:47+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://pengbin.org/post/2023-09-10-a/</loc>
+    <lastmod>2023-09-10T22:20:47+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://pengbin.org/tags/test-pyramid/</loc>
+    <lastmod>2023-09-10T22:20:47+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://pengbin.org/tags/testing/</loc>
+    <lastmod>2023-09-10T22:20:47+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://pengbin.org/tags/unit-test/</loc>
+    <lastmod>2023-09-10T22:20:47+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url><url>
     <loc>https://pengbin.org/post/@pengbintech/infrastructure-as-code-tools-726fc4a38237/</loc>
     <lastmod>2023-08-21T03:47:03+00:00</lastmod>
@@ -92,19 +142,5 @@
     <loc>https://pengbin.org/archive/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url><url>
-    <loc>https://pengbin.org/tags/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://pengbin.org/zh/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://pengbin.org/tags/"
-                />
   </url>
 </urlset>

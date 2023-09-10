@@ -5,6 +5,61 @@
     <link>https://pengbin.org/tags/</link>
     <description>Recent content in Tags on Peng Bin&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="https://pengbin.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Sun, 10 Sep 2023 22:20:47 +0800</lastBuildDate><atom:link href="https://pengbin.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>end-to-end test</title>
+      <link>https://pengbin.org/tags/end-to-end-test/</link>
+      <pubDate>Sun, 10 Sep 2023 22:20:47 +0800</pubDate>
+      
+      <guid>https://pengbin.org/tags/end-to-end-test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>integration test</title>
+      <link>https://pengbin.org/tags/integration-test/</link>
+      <pubDate>Sun, 10 Sep 2023 22:20:47 +0800</pubDate>
+      
+      <guid>https://pengbin.org/tags/integration-test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>terraform</title>
+      <link>https://pengbin.org/tags/terraform/</link>
+      <pubDate>Sun, 10 Sep 2023 22:20:47 +0800</pubDate>
+      
+      <guid>https://pengbin.org/tags/terraform/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>test pyramid</title>
+      <link>https://pengbin.org/tags/test-pyramid/</link>
+      <pubDate>Sun, 10 Sep 2023 22:20:47 +0800</pubDate>
+      
+      <guid>https://pengbin.org/tags/test-pyramid/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>testing</title>
+      <link>https://pengbin.org/tags/testing/</link>
+      <pubDate>Sun, 10 Sep 2023 22:20:47 +0800</pubDate>
+      
+      <guid>https://pengbin.org/tags/testing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>unit test</title>
+      <link>https://pengbin.org/tags/unit-test/</link>
+      <pubDate>Sun, 10 Sep 2023 22:20:47 +0800</pubDate>
+      
+      <guid>https://pengbin.org/tags/unit-test/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

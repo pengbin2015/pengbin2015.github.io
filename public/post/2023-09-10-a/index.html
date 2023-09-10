@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
-    <title>Peng Bin&#39;s Blog | Peng Bin&#39;s Blog</title>
+    <title>Terraform Testing | Peng Bin&#39;s Blog</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="Software developer, open-source enthusiast, life adventurer.">
+    <meta name="description" content="Introduction Running tests against infrastructure is difficult because tests can&rsquo;t be executed on a developer&rsquo;s local machine, requiring access to real Cloud platforms. This limitation leads to several issues: longer testing times, delayed error detection, increased testing costs, and the need for significant setup efforts in the Cloud environment.
+And we&rsquo;ll discuss testing strategies aligned with the test pyramid concept, emphasizing unit tests and exploring ways to apply this strategy effectively to Terraform testing.">
     <meta name="generator" content="Hugo 0.117.0">
     
     
@@ -29,19 +30,22 @@
 
     
     
-      <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Peng Bin&#39;s Blog" />
-      <link href="/index.xml" rel="feed" type="application/rss+xml" title="Peng Bin&#39;s Blog" />
-      
-    
-    
-    <meta property="og:title" content="Peng Bin&#39;s Blog" />
-<meta property="og:description" content="Software developer, open-source enthusiast, life adventurer." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://pengbin.org/" />
-<meta itemprop="name" content="Peng Bin&#39;s Blog">
-<meta itemprop="description" content="Software developer, open-source enthusiast, life adventurer."><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Peng Bin&#39;s Blog"/>
-<meta name="twitter:description" content="Software developer, open-source enthusiast, life adventurer."/>
+    <meta property="og:title" content="Terraform Testing" />
+<meta property="og:description" content="Introduction Running tests against infrastructure is difficult because tests can&rsquo;t be executed on a developer&rsquo;s local machine, requiring access to real Cloud platforms. This limitation leads to several issues: longer testing times, delayed error detection, increased testing costs, and the need for significant setup efforts in the Cloud environment.
+And we&rsquo;ll discuss testing strategies aligned with the test pyramid concept, emphasizing unit tests and exploring ways to apply this strategy effectively to Terraform testing." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pengbin.org/post/2023-09-10-a/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-09-10T22:20:47+08:00" />
+<meta property="article:modified_time" content="2023-09-10T22:20:47+08:00" />
+<meta itemprop="name" content="Terraform Testing">
+<meta itemprop="description" content="Introduction Running tests against infrastructure is difficult because tests can&rsquo;t be executed on a developer&rsquo;s local machine, requiring access to real Cloud platforms. This limitation leads to several issues: longer testing times, delayed error detection, increased testing costs, and the need for significant setup efforts in the Cloud environment.
+And we&rsquo;ll discuss testing strategies aligned with the test pyramid concept, emphasizing unit tests and exploring ways to apply this strategy effectively to Terraform testing."><meta itemprop="datePublished" content="2023-09-10T22:20:47+08:00" />
+<meta itemprop="dateModified" content="2023-09-10T22:20:47+08:00" />
+<meta itemprop="wordCount" content="569">
+<meta itemprop="keywords" content="terraform,testing,unit test,integration test,end-to-end test,test pyramid," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Terraform Testing"/>
+<meta name="twitter:description" content="Introduction Running tests against infrastructure is difficult because tests can&rsquo;t be executed on a developer&rsquo;s local machine, requiring access to real Cloud platforms. This limitation leads to several issues: longer testing times, delayed error detection, increased testing costs, and the need for significant setup efforts in the Cloud environment.
+And we&rsquo;ll discuss testing strategies aligned with the test pyramid concept, emphasizing unit tests and exploring ways to apply this strategy effectively to Terraform testing."/>
 
 	
   </head>
@@ -49,10 +53,35 @@
   <body class="ma0 avenir bg-near-white">
 
     
-
+   
   
-  <header class="cover bg-top" style="background-image: url('https://pengbin.org/img/home-bg-valley.jpg');">
-    <div class="bg-black-60">
+
+  <header>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7T4MC62N51"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-7T4MC62N51', { 'anonymize_ip': false });
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-7T4MC62N51', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <div class="bg-black">
       <nav class="pv3 ph3 ph4-ns" role="navigation">
   <div class="flex-l justify-between items-center center">
     <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
@@ -62,15 +91,6 @@
     </a>
     <div class="flex-l items-center">
       
-<h4></h4>
-<ul class="pl0 mr3">
-    
-    <li class="list f5 f4-ns fw4 dib pr3">
-        <a class="hover-white no-underline white-90" href="/zh/">zh</a>
-    </li>
-    
-</ul>
-
 
       
         <ul class="pl0 mr3">
@@ -147,177 +167,166 @@
   </div>
 </nav>
 
-      <div class="tc-l pv4 pv6-l ph3 ph4-ns">
-        <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
-          Peng Bin&#39;s Blog
-        </h1>
-        
-          <h2 class="fw1 f5 f3-l white-80 measure-wide-l center mt3">
-            Software developer, open-source enthusiast, life adventurer.
-          </h2>
-        
-      </div>
     </div>
   </header>
 
 
+
     <main class="pb7" role="main">
       
- <article class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray">
-    <p>Welcome to my blog, dedicated to unveiling the boundless wonders of the world</p>
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+      <h1 class="f1 athelas mt3 mb1">Terraform Testing</h1>
+      
+
+      <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+        <tbody>
+          <tr>
+            <td>
+              <p class="tracked">
+                By <strong>Peng Bin</strong>   
+              </p>
+            </td>
+            <td align="right">
+              
+              
+              
+              <time class="f6 mv4 dib tracked" datetime="2023-09-10T22:20:47+08:00">10. September 2023</time>
+              
+            </td>
+          </tr>
+      </table>
+      
+      <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><ul class="pa0">
+  
+   <li class="list di">
+     <a href="/tags/terraform/" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">terraform</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/tags/testing/" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">testing</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/tags/unit-test/" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">unit test</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/tags/integration-test/" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">integration test</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/tags/end-to-end-test/" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">end-to-end test</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/tags/test-pyramid/" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">test pyramid</a>
+   </li>
+  
+</ul>
+
+      
+    </header>
+
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><h1 id="introduction">Introduction</h1>
+<p>Running tests against infrastructure is difficult because tests can&rsquo;t be executed on a developer&rsquo;s local machine, requiring access to real Cloud platforms. This limitation leads to several issues: longer testing times, delayed error detection, increased testing costs, and the need for significant setup efforts in the Cloud environment.</p>
+<p>And we&rsquo;ll discuss testing strategies aligned with the test pyramid concept, emphasizing unit tests and exploring ways to apply this strategy effectively to Terraform testing.</p>
+<h1 id="unit-test">Unit Test</h1>
+<p>You can use <code>terraform fmt -check</code> and <code>terraform validate</code> to perform rudimentary unit tests. Additionally, leverage tools like HashiCorp Sentinel or Open Policy Agent to write unit tests that check parameters and security policies in Terraform configuration plans. To generate a Terraform configuration plan, use the following command to save it to a file::</p>
+<pre tabindex="0"><code>terraform plan -out=tfplan
+</code></pre><p>You can also use Terratest or kitchen-terraform frameworks to write unit tests.</p>
+<h1 id="contract-test">Contract Test</h1>
+<p>Contract test ensures that the contract between a Terrorm configuration&rsquo;s expected inputs to a module and the module&rsquo;s actual inputs has not been broken. You can consider contract test as one special unit test for Terraform.</p>
+<p>First, you can use custom validation rules for contract tests. For example, employ a custom validation rule to ensure that an AWS load balancer’s listener rule receives a valid integer range for its priority.</p>
+<pre tabindex="0"><code>variable &#34;listener_rule_priority&#34; {
+ type        = number
+ default     = 1
+ description = &#34;Priority of listener rule between 1 to 50000&#34;
+ validation {
+   condition     = var.listener_rule_priority &gt; 0 &amp;&amp; var.listener_rule_priority &lt; 50000
+   error_message = &#34;The priority of listener_rule must be between 1 to 50000.&#34;
+ }
+}
+</code></pre><p>Second, validate variables with an object structure and confirm that the module receives the expected input. In the AWS load balancer case, add a map representing service objects and their expected attributes and type.</p>
+<pre tabindex="0"><code>variable &#34;services&#34; {
+ description = &#34;Consul services monitored by Consul-Terraform-Sync&#34;
+ type = map(
+   object({
+     id        = string
+     name      = string
+     address   = string
+     port      = number
+     kind      = string
+     meta      = map(string)
+     tags      = list(string)
+     namespace = string
+     status    = string
+
+     node                  = string
+     node_id               = string
+     node_address          = string
+     node_datacenter       = string
+     node_tagged_addresses = map(string)
+     node_meta             = map(string)
+   })
+ )
+}
+</code></pre><h1 id="integration-test">Integration Test</h1>
+<p>Integration testing can be achieved by running <code>terraform apply</code> in the staging environment. Alternatively, you can use frameworks like Terratest or kitchen-terraform for writing comprehensive integration tests.</p>
+<p>HashiCorp now provides an <a href="https://developer.hashicorp.com/terraform/language/modules/testing-experiment">the module integration testing experiment</a>.</p>
+<h1 id="end-toend-tests">End-toEnd Tests</h1>
+<p>Frameworks like Terratest and kitchen-terraform can also be employed for end-to-end testing scenarios.</p>
+<h1 id="testing-terraform-modules">Testing Terraform Modules</h1>
+<p>When creating and testing new Terraform modules, consider running a module delivery pipeline that begins with a <code>terraform plan</code>. Subsequently, execute unit tests (including contract tests) to validate the module&rsquo;s inputs. Follow this with <code>terraform apply</code> and ntegration tests to thoroughly check the module. After running integration tests, remove the resources and release a new module version.</p>
+<p><img src="module_test.png" alt="Terraform module test"></p>
+<h1 id="testing-terraform-configuration">Testing Terraform Configuration</h1>
+<p>For Terraform configuration testing, unit tests should focus on configuration aspects not associated with modules. Integration tests can verify that changes successfully run in a long-lived development environment. Additionally, include end-to-end tests to confirm end-user functionality. After successful tests in the development environment, apply the changes to the production environment, followed by end-to-end tests to ensure system availability.</p>
+<p><img src="configuration_test.png" alt="Terraform configurtion test"></p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Your Terraform testing strategy doesn&rsquo;t need to be a perfect test pyramid. Adapt these testing practices to suit your project&rsquo;s requirements. Explore <a href="https://github.com/joatmon08/tdd-infrastructure">a list of infrastructure testing tools</a> for further assistance in enhancing your Terraform testing efforts.</p>
+<div class="mt6 instapaper_ignoref">
+      
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "pengbin-org" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+      <div id="commento"></div>
+<script defer src="https://cdn.commento.io/js/commento.js"></script>
+
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
 
   </article>
-  
-  
-  
-  
-  
-  
-  
-    
-    
-
-    <div class="pa3 pa4-ns w-100 w-70-ns center">
-      
-       
-          <h1 class="flex-none">
-            Recent Posts
-          </h1>
-        
-
-      
-
-      <section class="w-100 mw8">
-        
-        
-          <div class="relative w-100 mb4">
-            
-<article class="bb b--black-10">
-  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
-    <div class="flex flex-column flex-row-ns">
-      
-      
-      
-      <div class="blah w-100">
-        <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="/post/2023-09-10-a/" class="color-inherit dim link">
-            Terraform Testing
-            </a>
-        </h1>
-        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          Introduction Running tests against infrastructure is difficult because tests can&rsquo;t be executed on a developer&rsquo;s local machine, requiring access to real Cloud platforms. This limitation leads to several issues: longer testing times, delayed error detection, increased testing costs, and the need for significant setup efforts in the Cloud environment.
-And we&rsquo;ll discuss testing strategies aligned with the test pyramid concept, emphasizing unit tests and exploring ways to apply this strategy effectively to Terraform testing.
-        </div>
-          <a href="/post/2023-09-10-a/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">Read more ...</a>
-        
-      </div>
-    </div>
-  </div>
-</article>
-          </div>
-        
-          <div class="relative w-100 mb4">
-            
-<article class="bb b--black-10">
-  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
-    <div class="flex flex-column flex-row-ns">
-      
-      
-      
-          
-        <div class="pr3-ns mb4 mb0-ns w-100 w-40-ns">
-          <a href="/post/@pengbintech/infrastructure-as-code-tools-726fc4a38237/" class="db grow">
-            <img src="/post/@pengbintech/infrastructure-as-code-tools-726fc4a38237/notebook.jpg" class="img" alt="image from Infrastructure as Code Tools">
-          </a>
-        </div>
-      
-      <div class="blah w-100 w-60-ns pl3-ns">
-        <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="/post/@pengbintech/infrastructure-as-code-tools-726fc4a38237/" class="color-inherit dim link">
-            Infrastructure as Code Tools
-            </a>
-        </h1>
-        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          If you’re involved in DevOps, you should be acquainted with Infrastructure as Code (IaC). IaC allows you to write code to define, deploy, update, and dismantle IT infrastructure, rather than manually performing these tasks.
-There are numerous tools designed to aid in IaC. These can be grouped into five categories:
-Ad hoc scripts Configuration management tools Server templating tools Orchestration tools Provisioning tools Ad hoc scripts Ad hoc scripts are a straightforward method for automating tasks or configuring tools.
-        </div>
-          <a href="/post/@pengbintech/infrastructure-as-code-tools-726fc4a38237/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">Read more ...</a>
-        
-      </div>
-    </div>
-  </div>
-</article>
-          </div>
-        
-          <div class="relative w-100 mb4">
-            
-<article class="bb b--black-10">
-  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
-    <div class="flex flex-column flex-row-ns">
-      
-      
-      
-          
-        <div class="pr3-ns mb4 mb0-ns w-100 w-40-ns">
-          <a href="/post/@pengbintech/decorator-factory-in-python-1fe94162a37a/" class="db grow">
-            <img src="/post/@pengbintech/decorator-factory-in-python-1fe94162a37a/neom.jpg" class="img" alt="image from Decorator Factory in Python">
-          </a>
-        </div>
-      
-      <div class="blah w-100 w-60-ns pl3-ns">
-        <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="/post/@pengbintech/decorator-factory-in-python-1fe94162a37a/" class="color-inherit dim link">
-            Decorator Factory in Python
-            </a>
-        </h1>
-        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          When studying the open source project ‘langchain’, I came across an intriguing function: xor_args(), found in the file ‘langchain/utils.py’. This function is an example of a Decorator Factory, a more advanced concept in Python.
-def xor\_args(\*arg\_groups: Tuple\[str, ...\]) -&gt; Callable: &#34;&#34;&#34;Validate specified keyword args are mutually exclusive.&#34;&#34;&#34; def decorator(func: Callable) -&gt; Callable: def wrapper(\*args: Any, \*\*kwargs: Any) -&gt; Callable: &#34;&#34;&#34;Validate exactly one arg in each group is not None.&#34;&#34;&#34; counts = \[ sum(1 for arg in arg\_group if kwargs.
-        </div>
-          <a href="/post/@pengbintech/decorator-factory-in-python-1fe94162a37a/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">Read more ...</a>
-        
-      </div>
-    </div>
-  </div>
-</article>
-          </div>
-        
-      </section>
-
-      
-      <section class="w-100">
-        <h1 class="f3">More</h1>
-        
-        
-          <h2 class="f5 fw4 mb4 dib mr3">
-            <a href="/post/@pengbintech/torch-package-error-when-install-langchain-175c00672df4/" class="link black dim">
-              Torch package error when install LangChain
-            </a>
-          </h2>
-        
-          <h2 class="f5 fw4 mb4 dib mr3">
-            <a href="/post/@pengbintech/learning-about-kubernetes-299921ac3bfb/" class="link black dim">
-              Learning about Kubernetes
-            </a>
-          </h2>
-        
-          <h2 class="f5 fw4 mb4 dib mr3">
-            <a href="/post/@pengbintech/the-golang-web-frameworks-for-beginner-91a6859f1919/" class="link black dim">
-              The Golang Web Frameworks for Beginner
-            </a>
-          </h2>
-        
-
-        
-        
-          <a href="/post/" class="link db f6 pa2 br3 bg-mid-gray white dim w4 tc">All Posts</a>
-        
-        </section>
-      
-
-      </div>
-  
 
     </main>
     <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
