@@ -1,6 +1,6 @@
 baseurl = "https://pengbin.org"
 title = "Peng Bin's Blog"
-theme = "hugo-theme-cleanwhite"
+theme = "ananke"
 languageCode = "en-us"
 # Enable comments by entering your Disqus shortname
 disqusShortname = ""

@@ -10,20 +10,20 @@
     <meta property="og:type" content="article">
 
     
-    <meta property="og:image" content="/img/2018-4-25-istio-auto-injection-with-webhook/lion.jpg">
-    <meta property="twitter:image" content="/img/2018-4-25-istio-auto-injection-with-webhook/lion.jpg" />
+    <meta property="og:image" content="https://pengbin.org/img/home-bg-valley.jpg">
+    <meta property="twitter:image" content="https://pengbin.org/img/home-bg-valley.jpg" />
     
 
     
-    <meta name="title" content="Istio Sidecar自动注入原理" />
-    <meta property="og:title" content="Istio Sidecar自动注入原理" />
-    <meta property="twitter:title" content="Istio Sidecar自动注入原理" />
+    <meta name="title" content="Infrastructure as Code Tools" />
+    <meta property="og:title" content="Infrastructure as Code Tools" />
+    <meta property="twitter:title" content="Infrastructure as Code Tools" />
     
 
     
-    <meta name="description" content="Kubernets 1.9版本引入了Admission Webhook(web 回调)扩展机制，通过Webhook,开发者可以非常灵活地对Kubernets API Server的功能进行扩展，在API Server创建资源时对资源进行验证或者修改。 Istio 0.7版本就利用了Kubernets webhook实现了sidecar的自动注入。">
-    <meta property="og:description" content="Kubernets 1.9版本引入了Admission Webhook(web 回调)扩展机制，通过Webhook,开发者可以非常灵活地对Kubernets API Server的功能进行扩展，在API Server创建资源时对资源进行验证或者修改。 Istio 0.7版本就利用了Kubernets webhook实现了sidecar的自动注入。" />
-    <meta property="twitter:description" content="Kubernets 1.9版本引入了Admission Webhook(web 回调)扩展机制，通过Webhook,开发者可以非常灵活地对Kubernets API Server的功能进行扩展，在API Server创建资源时对资源进行验证或者修改。 Istio 0.7版本就利用了Kubernets webhook实现了sidecar的自动注入。" />
+    <meta name="description" content="If you’re involved in DevOps, you should be acquainted with Infrastructure as Code (IaC). IaC allows you to write code to define, deploy…">
+    <meta property="og:description" content="If you’re involved in DevOps, you should be acquainted with Infrastructure as Code (IaC). IaC allows you to write code to define, deploy…" />
+    <meta property="twitter:description" content="If you’re involved in DevOps, you should be acquainted with Infrastructure as Code (IaC). IaC allows you to write code to define, deploy…" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="Peng Bin, Peng Bin Blog, Cloud, Web, Microservice, Full Stack">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>Istio Sidecar自动注入原理 | Peng Bin&#39;s Blog</title>
+    <title>Infrastructure as Code Tools | Peng Bin&#39;s Blog</title>
 
-    <link rel="canonical" href="/2018/05/23/istio-auto-injection-with-webhook/">
+    <link rel="canonical" href="/post/@pengbintech/infrastructure-as-code-tools-726fc4a38237/">
 
     
     
@@ -166,7 +166,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/2018-4-25-istio-auto-injection-with-webhook/lion.jpg')
+        background-image: url('/img/home-bg-valley.jpg')
     }
 </style>
 
@@ -178,25 +178,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/kubernetes" title="Kubernetes">
-                            Kubernetes
-                        </a>
-                        
-                        <a class="tag" href="/tags/istio" title="Istio">
-                            Istio
-                        </a>
-                        
                     </div>
-                    <h1>Istio Sidecar自动注入原理</h1>
-                    <h2 class="subheading">Kubernetes webhook扩展机制解析</h2>
+                    <h1>Infrastructure as Code Tools</h1>
+                    <h2 class="subheading"></h2>
                     <span class="meta">
                         
                             Posted by 
                             
-                                    &#34;赵化冰&#34;
+                                    Peng Bin&#39;s Blog
                              
                             on 
-                            Wednesday, May 23, 2018
+                            Monday, August 21, 2023
                             
                             
                             
@@ -222,83 +214,90 @@
                 post-container">
 
                 
-                <h2 id="前言">前言</h2>
-<hr>
-<p>Kubernets 1.9版本引入了Admission Webhook(web 回调)扩展机制，通过Webhook,开发者可以非常灵活地对Kubernets API Server的功能进行扩展，在API Server创建资源时对资源进行验证或者修改。</p>
-<p>使用webhook的优势是不需要对API Server的源码进行修改和重新编译就可以扩展其功能。插入的逻辑实现为一个独立的web进程，通过参数方式传入到kubernets中，由kubernets在进行自身逻辑处理时对扩展逻辑进行回调。</p>
-<p>Istio 0.7版本就利用了Kubernets webhook实现了sidecar的自动注入。</p>
-<h2 id="什么是admission">什么是Admission</h2>
-<hr>
-<p>Admission是Kubernets中的一个术语，指的是Kubernets API Server资源请求过程中的一个阶段。如下图所示，在API Server接收到资源创建请求时，首先会对请求进行认证和鉴权，然后经过Admission处理，最后再保存到etcd。
-
-  <img src="/img/2018-4-25-istio-auto-injection-with-webhook/admission-phase.png" alt="">
-
-
-从图中看到，Admission中有两个重要的阶段，Mutation和Validation，这两个阶段中执行的逻辑如下：</p>
+                <p>If you’re involved in DevOps, you should be acquainted with Infrastructure as Code (IaC). IaC allows you to write code to define, deploy, update, and dismantle IT infrastructure, rather than manually performing these tasks.</p>
+<p>There are numerous tools designed to aid in IaC. These can be grouped into five categories:</p>
 <ul>
-<li>
-<p>Mutation</p>
-<p>Mutation是英文“突变”的意思,从字面上可以知道在Mutation阶段可以对请求内容进行修改。</p>
-</li>
-<li>
-<p>Validation</p>
-<p>在Validation阶段不允许修改请求内容，但可以根据请求的内容判断是继续执行该请求还是拒绝该请求。</p>
-</li>
+<li>Ad hoc scripts</li>
+<li>Configuration management tools</li>
+<li>Server templating tools</li>
+<li>Orchestration tools</li>
+<li>Provisioning tools</li>
 </ul>
-<h2 id="admission-webhook">Admission webhook</h2>
-<hr>
-<p>通过Admission webhook,可以加入Mutation和Validation两种类型的webhook插件，这些插件和Kubernets提供的预编译的Admission插件具有相同的能力。可以想到的用途包括：</p>
+<h4 id="ad-hocscripts">Ad hoc scripts</h4>
+<p>Ad hoc scripts are a straightforward method for automating tasks or configuring tools. These can be written in any scripting language (e.g., Bash, Perl, Python, Ruby).</p>
+<p>For instance, the following Bash script creates and configures a web server:</p>
+<p>#!/bin/bash<br>
+yum update -y<br>
+yum install -y httpd php<br>
+systemctl start httpd<br>
+systemctl enable httpd<br>
+usermod -a -G apache ec2-user<br>
+chown -R ec2-user:apache /var/www<br>
+chmod 2775 /var/www<br>
+find /var/www -type d -exec chmod 2775 {} \;<br>
+find /var/www -type f -exec chmod 0664 {} \;<br>
+echo &ldquo;<!-- raw HTML omitted -->&rdquo; &gt; /var/www/html/phpinfo.php</p>
+<p>While ad hoc scripts are useful for small, one-off tasks, they can become. unwieldy when maintaining a large repository of scripts to manage your entire infrastructure.</p>
+<h4 id="configuration-management-tools">Configuration Management Tools</h4>
+<p>Configuration management tools are purposely created to install and manage software on existing servers. Common configuration management tools include Chef, Puppet, Ansible, and SaltStack.</p>
+<p>Compared to ad hoc scripts, configuration management tools offer advantages like:</p>
 <ul>
-<li>修改资源。例如Istio就通过Admin Webhook在Pod资源中增加了Envoy sidecar容器。</li>
-<li>自定义校验逻辑，例如对资源名称有一些特殊要求。或者对自定义资源的合法性进行校验。</li>
+<li>Consistent coding conventions for readability.</li>
+<li>Idempotent code that works correctly regardless of how many times it’s run.</li>
+<li>Ability to manage large numbers of remote servers seamlessly.</li>
 </ul>
-<h2 id="采用webhook自动注入istio-sidecar">采用Webhook自动注入Istio Sidecar</h2>
-<hr>
-<h3 id="kubernets版本要求">Kubernets版本要求</h3>
-<p>webhook支持需要Kubernets1.9或者更高的版本,使用下面的命令确认kube-apiserver的Admin webhook功能已启用。</p>
-<pre tabindex="0"><code>kubectl api-versions | grep admissionregistration
+<p>For example, here is an Ansible YAML file that configures a web server:</p>
+<p>- name: Update the packages<br>
+apt:<br>
+update_cache: yes</p>
+<p>- name: install PHP<br>
+apt:<br>
+name: php</p>
+<p>- name: install web server<br>
+apt:<br>
+name: apache2</p>
+<p>- name: start web server<br>
+service: name=apache2 state=started enabled=yes</p>
+<h4 id="server-templating-tools">Server Templating Tools</h4>
+<p>Though configuration management tools provide advantages, they can cause configuration drift issues. Server templating tools, like Docker, Packer, and Vagrant, address these problems by adopting an immutable infrastructure approach. This means that once a server is deployed, no changes are made to it. Any required changes lead to the creation and deployment of a new image on a new server.</p>
+<p>For instance, here is a Packer template for an Amazon Machine Image (AMI):</p>
+<p>{<br>
+&ldquo;builders&rdquo;: [{<br>
+&ldquo;ami_name&rdquo;: &ldquo;packer-image&rdquo;,<br>
+&ldquo;instance_type&rdquo;: &ldquo;t2-micro&rdquo;,<br>
+&ldquo;region&rdquo;: &ldquo;us-east-2&rdquo;,<br>
+&ldquo;type&rdquo;: &ldquo;amazon-ebs&rdquo;,<br>
+&ldquo;source_ami&rdquo;: &ldquo;ami-55c324223gf0&rdquo;,<br>
+&ldquo;ssh_username&rdquo;: &ldquo;ubuntu&rdquo;<br>
+}],<br>
+&ldquo;provisioners&rdquo;: [{<br>
+&ldquo;type&rdquo;: &ldquo;shell&rdquo;,<br>
+&ldquo;inline&rdquo;: [<br>
+&ldquo;sudo apt-get update&rdquo;,<br>
+&ldquo;sudo apt-get install -y php apache2&rdquo;,<br>
+],<br>
+&ldquo;environment_vars&rdquo;: [<br>
+&ldquo;DEBIAN_FRONTEND=noninteractive&rdquo;<br>
+]<br>
+}]<br>
+}</p>
+<h4 id="orchestration-tools">Orchestration Tools</h4>
+<p>While server templating tools are excellent for creating VM and container images, they lack mechanisms to manage them. For example, how to deploy VMs and containers on a large number of servers, how to monitor the health of the VMS and containers and automatically replace unhealthy ones, and so on.</p>
+<p>Therefore, orchestration tools like Kubernetes, Marathon/Mesos, Docker Swarm, Nomad, and Amazon ECS are designed to handle these tasks. The popular orchestration tools include Kubernetes, Marathon/Mesos, Docker Swarm, Nomad, and Amazon ECS. Most major cloud providers have native support for deploying managed Kubernetes clusters, such as Amazon EKS, Google GKE, and Azure AKS.</p>
+<h4 id="provisioning-tools">Provisioning Tools</h4>
+<p>Provisioning tools go beyond defining code and configuration that runs on each server; they are responsible for creating the actual servers and other aspects of infrastructure in the cloud. Examples include Terraform, CloudFormation, and OpenStack Heat.</p>
+<p>Here’s an example code to deploy a web server using Terraform:</p>
+<p>resource &ldquo;aws_instance&rdquo; &ldquo;webserver&rdquo; {<br>
+instance_type = &ldquo;t2.micro&rdquo;<br>
+availability_zone = &ldquo;us-east-2a&rdquo;<br>
+ami = &ldquo;ami-0c55b159cbfafeif0&rdquo;</p>
+<p>user-data = &laquo;-EOF<br>
+#!/bin/bash<br>
+sudo service apache2 start<br>
+EOF<br>
+}</p>
+<p>With these IaC tools, organizations can significantly enhance the software delivery process and manage infrastructure with a smaller team of engineers.</p>
 
-admissionregistration.k8s.io/v1beta1
-</code></pre><h3 id="生成sidecar-injection-webhook的密钥和证书">生成sidecar injection webhook的密钥和证书</h3>
-<p>Webhook使用数字证书向kube-apiserver进行身份认证，因此需要先使用工具生成密钥对，并向Istio CA申请数字证书。</p>
-<pre tabindex="0"><code>./install/kubernetes/webhook-create-signed-cert.sh /
-    --service istio-sidecar-injector /
-    --namespace istio-system /
-    --secret sidecar-injector-certs
-</code></pre><h3 id="将生成的数字证书配置到webhook中">将生成的数字证书配置到webhook中</h3>
-<pre tabindex="0"><code>cat install/kubernetes/istio-sidecar-injector.yaml | /
-     ./install/kubernetes/webhook-patch-ca-bundle.sh &gt; /
-     install/kubernetes/istio-sidecar-injector-with-ca-bundle.yaml
-</code></pre><h3 id="创建sidecar-injection-configmap">创建sidecar injection configmap</h3>
-<pre tabindex="0"><code>kubectl apply -f install/kubernetes/istio-sidecar-injector-configmap-release.yaml
-</code></pre><h3 id="部署sidecar-injection-webhook">部署sidecar injection webhook</h3>
-<pre tabindex="0"><code>kubectl apply -f install/kubernetes/istio-sidecar-injector-with-ca-bundle.yaml
-</code></pre><p>通过命令查看部署好的webhook injector</p>
-<pre tabindex="0"><code>kubectl -n istio-system get deployment -listio=sidecar-injector
-Copy
-NAME                     DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-istio-sidecar-injector   1         1         1            1           1d
-```
-
-### 开启需要自动注入sidecar的namespace 
-
-```
-kubectl label namespace default istio-injection=enabled
-
-kubectl get namespace -L istio-injection
-
-NAME           STATUS    AGE       ISTIO-INJECTION
-default        Active    1h        enabled
-istio-system   Active    1h        
-kube-public    Active    1h        
-kube-system    Active    1h  
-```
-
-## 参考
-
-* [Extensible Admission is Beta](https://kubernetes.io/blog/2018/01/extensible-admission-is-beta)
-* [Installing the Istio Sidecar](https://istio.io/docs/setup/kubernetes/sidecar-injection.html)
-</code></pre>
 
                 
 
@@ -307,15 +306,10 @@ kube-system    Active    1h
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/05/01/may-day-jiulonghu/" data-toggle="tooltip" data-placement="top" title="川西秘境探险">&larr;
+                        <a href="/post/@pengbintech/decorator-factory-in-python-1fe94162a37a/" data-toggle="tooltip" data-placement="top" title="Decorator Factory in Python">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2018/05/22/user_authentication_authorization/" data-toggle="tooltip" data-placement="top" title="微服务安全沉思录之一">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
                 

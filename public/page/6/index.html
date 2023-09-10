@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
+	<meta name="generator" content="Hugo 0.117.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,20 +11,20 @@
     <meta property="og:type" content="article">
 
     
-    <meta property="og:image" content="/img/docker.jpg">
-    <meta property="twitter:image" content="/img/docker.jpg" />
+    <meta property="og:image" content="https://pengbin.org/img/home-bg-valley.jpg">
+    <meta property="twitter:image" content="https://pengbin.org/img/home-bg-valley.jpg" />
     
 
     
-    <meta name="title" content="如何配置docker使用HTTP代理" />
-    <meta property="og:title" content="如何配置docker使用HTTP代理" />
-    <meta property="twitter:title" content="如何配置docker使用HTTP代理" />
+    <meta name="title" content="" />
+    <meta property="og:title" content="" />
+    <meta property="twitter:title" content="" />
     
 
     
-    <meta name="description" content="如何配置docker使用HTTP代理">
-    <meta property="og:description" content="如何配置docker使用HTTP代理" />
-    <meta property="twitter:description" content="如何配置docker使用HTTP代理" />
+    <meta name="description" content="Software developer, open-source enthusiast, life adventurer | This is Peng Bin&#39;s blog, dedicated to unveiling the boundless wonders of the world.。">
+    <meta property="og:description" content="Software developer, open-source enthusiast, life adventurer | This is Peng Bin&#39;s blog, dedicated to unveiling the boundless wonders of the world.。" />
+    <meta property="twitter:description" content="Software developer, open-source enthusiast, life adventurer | This is Peng Bin&#39;s blog, dedicated to unveiling the boundless wonders of the world.。" />
     
 
     
@@ -34,9 +35,9 @@
     <meta name="keyword"  content="Peng Bin, Peng Bin Blog, Cloud, Web, Microservice, Full Stack">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>如何配置docker使用HTTP代理 | Peng Bin&#39;s Blog</title>
+    <title>Peng Bin&#39;s Blog | Peng Bin&#39;s Blog</title>
 
-    <link rel="canonical" href="/2018/03/13/use-docker-behind-http-proxy/">
+    <link rel="canonical" href="/">
 
     
     
@@ -163,45 +164,14 @@
 
 
 
-
-<style type="text/css">
-    header.intro-header {
-        background-image: url('/img/docker.jpg')
-    }
-</style>
-
-<header class="intro-header" >
-
+<header class="intro-header" style="background-image: url('/img/home-bg-valley.jpg')">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                        <a class="tag" href="/tags/tips" title="Tips">
-                            Tips
-                        </a>
-                        
-                        <a class="tag" href="/tags/docker" title="Docker">
-                            Docker
-                        </a>
-                        
-                    </div>
-                    <h1>如何配置docker使用HTTP代理</h1>
-                    <h2 class="subheading"></h2>
-                    <span class="meta">
-                        
-                            Posted by 
-                            
-                                赵化冰
-                             
-                            on 
-                            Tuesday, March 13, 2018
-                            
-                            
-                            
-                            
-                    </span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Peng Bin&#39;s Blog </h1>
+                    
+		    <span class="subheading"></span>
                 </div>
             </div>
         </div>
@@ -210,170 +180,257 @@
 
 
 
-
-<article>
-    <div class="container">
-        <div class="row">
-
+  
+<div data-pagefind-ignore="all" class="container">
+    <div class="row">
+        
+        
+   	    <div class="
+            col-lg-8 col-lg-offset-1
+            col-md-8 col-md-offset-1
+            col-sm-12
+            col-xs-12
+            post-container
+        ">
             
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
+<div data-pagefind-ignore="all">
 
-                
-                <h2 id="ubuntu">Ubuntu</h2>
-<h3 id="设置docker使用http-proxy">设置docker使用http proxy</h3>
-<pre tabindex="0"><code>sudo /etc/default/docker
-
-export http_proxy=&#34;http://127.0.0.1:3128/&#34;
-export https_proxy=&#34;http://127.0.0.1:3128/&#34;
-export HTTP_PROXY=&#34;http://127.0.0.1:3128/&#34;
-export HTTPS_PROXY=&#34;http://127.0.0.1:3128/&#34;
-</code></pre><h3 id="加载配置并重启docker">加载配置并重启docker</h3>
-<pre tabindex="0"><code>sudo service docker restart
-</code></pre><h2 id="centos">CentOS</h2>
-<h3 id="设置docker使用http-proxy-1">设置docker使用http proxy</h3>
-<pre tabindex="0"><code>sudo mkdir -p /etc/systemd/system/docker.service.d
-
-echo &#39;
-[Service]
-Environment=&#34;HTTP_PROXY=http://proxy.foo.bar.com:80/&#34;
-&#39; | sudo tee /etc/systemd/system/docker.service.d/http-proxy.conf
-</code></pre><h3 id="加载配置并重启docker-1">加载配置并重启docker</h3>
-<pre tabindex="0"><code>sudo systemctl daemon-reload
-sudo systemctl restart docker
-</code></pre>
-
-                
-
-                
-                <hr>
-                <ul class="pager">
-                    
-                    <li class="previous">
-                        <a href="/2018/02/09/vim-tips/" data-toggle="tooltip" data-placement="top" title="Vim Tips">&larr;
-                            Previous Post</a>
-                    </li>
-                    
-                    
-                    <li class="next">
-                        <a href="/2018/03/29/what-is-service-mesh-and-istio/" data-toggle="tooltip" data-placement="top" title="谈谈微服务架构中的基础设施：Service Mesh与Istio">Next
-                            Post &rarr;</a>
-                    </li>
-                    
-                </ul>
-                
-
-                
-
-
-
-            </div>
-
-            
-            
-            <div class="
-                col-lg-2 col-lg-offset-0
-                visible-lg-block
-                sidebar-container
-                catalog-container">
-                <div class="side-catalog">
-                    <hr class="hidden-sm hidden-xs">
-                    <h5>
-                        <a class="catalog-toggle" href="#">CATALOG</a>
-                    </h5>
-                    <ul class="catalog-body"></ul>
-                </div>
-            </div>
-            
-
-            
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                
-                
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                        
-                        
-                        
-                        
-                        
-                        <a href="/tags/docker" title="docker">
-                            docker
-                        </a>
-                        
-                        
-                        
-                        
-                        
-                        <a href="/tags/istio" title="istio">
-                            istio
-                        </a>
-                        
-                        
-                        
-                        <a href="/tags/kubernetes" title="kubernetes">
-                            kubernetes
-                        </a>
-                        
-                        
-                        
-                        <a href="/tags/microservice" title="microservice">
-                            microservice
-                        </a>
-                        
-                        
-                        
-                        
-                        
-                        <a href="/tags/security" title="security">
-                            security
-                        </a>
-                        
-                        
-                        
-                        <a href="/tags/service-mesh" title="service-mesh">
-                            service-mesh
-                        </a>
-                        
-                        
-                        
-                        <a href="/tags/tips" title="tips">
-                            tips
-                        </a>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    </div>
-                </section>
-                
-
-                
-                
-                <section>
-                    <hr>
-                    <h5>FRIENDS</h5>
-                    <ul class="list-inline">
-                        
-                    </ul>
-                </section>
-                
-            </div>
+<div class="post-preview">
+    <a href="https://pengbin.org/2017/11/04/istio-install_and_example/">
+        <h2 class="post-title">
+            Istio及Bookinfo示例程序安装试用笔记
+        </h2>
+	
+        <h3 class="post-subtitle">
+            手把手教你从零搭建Istio及Bookinfo示例程序
+        </h3>
+	
+        <div class="post-content-preview">
+	
+            Istio是来自Google，IBM和Lyft的一个Service Mesh（服务网格）开源项目，是Google继Kubernetes之后的又一大作,本文将演示如何从裸机开始从零搭建Istio及Bookinfo示例程序。
+        
         </div>
-    </div>
-</article>
+    </a>
+    <p class="post-meta">
+    
+        Posted by 赵化冰 on Saturday, November 4, 2017
+        
+        
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://pengbin.org/2017/11/03/hello-world/">
+        <h2 class="post-title">
+            Welcome to Zhaohuabing Blog
+        </h2>
+	
+        <h3 class="post-subtitle">
+            Hello World, Hello Blog
+        </h3>
+	
+        <div class="post-content-preview">
+	
+            “Yeah It&rsquo;s on. ” Hello World!
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    
+        Posted by 赵化冰 on Saturday, November 4, 2017
+        
+        
+    
+    </p>
+
+</div>
+<hr>
+
+</div>
+
+            
+
+
+<ul class="pager" data-pagefind-ignore="all">
+    
+    <li class="previous">
+        <a href="/page/5/">&larr; Newer Posts</a>
+    </li>
+    
+    
+</ul>
+
+
+       	</div>
+        
+
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+    
+	
+    <section class="visible-md visible-lg">
+	
+        <div class="short-about">
+            
+            <a href="/about">
+               <img src="/img/pengbin.jpg" alt="avatar" style="cursor: pointer" />
+            </a>
+            
+            
+                <p>Software Developer, Open Source Enthusiast and Life Adventurer</p>
+            
+           
+           <ul class="list-inline">
+               
+               <li>
+                   <a href="mailto:pengbin@gmail.com">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                   </a>
+               </li>
+               
+               
+               <li>
+                   <a href="https://twitter.com/binpengwalker">
+                       <span class="fa-stack fa-lg">
+                           <i class="fas fa-circle fa-stack-2x"></i>
+                           <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               
+               
+               
+               
+               <li>
+                   <a target="_blank" href="https://github.com/pengbin2015">
+                       <span class="fa-stack fa-lg">
+                           <i class="fas fa-circle fa-stack-2x"></i>
+                           <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               
+               
+               <li>
+                   <a target="_blank" href="https://www.linkedin.com/in/bin-peng-4842065">
+                       <span class="fa-stack fa-lg">
+                           <i class="fas fa-circle fa-stack-2x"></i>
+                           <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               
+            
+            
+               
+               
+               
+               
+                </ul>
+            </div>
+    </section>
+	
+    
+    
+    
+    
+    <section>
+        <hr class="hidden-sm hidden-xs">
+        <h5>FEATURED TAGS</h5>
+        <div class="tags">
+            
+            
+               
+            
+               
+                    <a href="/tags/docker" title="docker">
+                        docker
+                    </a>
+               
+            
+               
+            
+               
+                    <a href="/tags/istio" title="istio">
+                        istio
+                    </a>
+               
+            
+               
+                    <a href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                    </a>
+               
+            
+               
+                    <a href="/tags/microservice" title="microservice">
+                        microservice
+                    </a>
+               
+            
+               
+            
+               
+                    <a href="/tags/security" title="security">
+                        security
+                    </a>
+               
+            
+               
+                    <a href="/tags/service-mesh" title="service-mesh">
+                        service-mesh
+                    </a>
+               
+            
+               
+                    <a href="/tags/tips" title="tips">
+                        tips
+                    </a>
+               
+            
+               
+            
+               
+            
+               
+            
+        </div>
+    </section>
+    
+
+    
+    
+    <section>
+        <hr class="hidden-sm hidden-xs">
+        <h5>FRIENDS</h5>
+        <ul class="list-inline">
+            
+        </ul>
+    </section>
+    
+    
+</div>
+
+	</div>
+</div>
+
 
 
 
