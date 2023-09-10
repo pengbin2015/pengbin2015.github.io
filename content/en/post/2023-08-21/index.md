@@ -6,11 +6,10 @@ description: >-
 date: "2023-08-21T03:47:03.099Z"
 categories: []
 keywords: []
-image: "/img/pengbin.jpg"
+featured_image: "notebook.jpg"
+omit_header_text: true
 slug: /@pengbintech/infrastructure-as-code-tools-726fc4a38237
 ---
-
-![Image alt text](notebook.jpg)
 
 If you’re involved in DevOps, you should be acquainted with Infrastructure as Code (IaC). IaC allows you to write code to define, deploy, update, and dismantle IT infrastructure, rather than manually performing these tasks.
 
@@ -28,17 +27,19 @@ Ad hoc scripts are a straightforward method for automating tasks or configuring 
 
 For instance, the following Bash script creates and configures a web server:
 
-#!/bin/bash  
-yum update -y  
-yum install -y httpd php  
-systemctl start httpd  
-systemctl enable httpd  
-usermod -a -G apache ec2-user  
-chown -R ec2-user:apache /var/www  
-chmod 2775 /var/www  
-find /var/www -type d -exec chmod 2775 {} \\;  
-find /var/www -type f -exec chmod 0664 {} \\;  
+```
+#!/bin/bash
+yum update -y
+yum install -y httpd php
+systemctl start httpd
+systemctl enable httpd
+usermod -a -G apache ec2-user
+chown -R ec2-user:apache /var/www
+chmod 2775 /var/www
+find /var/www -type d -exec chmod 2775 {} \\;
+find /var/www -type f -exec chmod 0664 {} \\;
 echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
+```
 
 While ad hoc scripts are useful for small, one-off tasks, they can become. unwieldy when maintaining a large repository of scripts to manage your entire infrastructure.
 
@@ -54,20 +55,22 @@ Compared to ad hoc scripts, configuration management tools offer advantages like
 
 For example, here is an Ansible YAML file that configures a web server:
 
-\- name: Update the packages  
- apt:  
+```
+- name: Update the packages
+ apt:
  update_cache: yes
 
-\- name: install PHP  
- apt:  
+- name: install PHP
+ apt:
  name: php
 
-\- name: install web server  
- apt:  
+- name: install web server
+ apt:
  name: apache2
 
-\- name: start web server  
+- name: start web server
  service: name=apache2 state=started enabled=yes
+```
 
 #### Server Templating Tools
 
@@ -75,26 +78,28 @@ Though configuration management tools provide advantages, they can cause configu
 
 For instance, here is a Packer template for an Amazon Machine Image (AMI):
 
-{  
- "builders": \[{  
- "ami_name": "packer-image",  
- "instance_type": "t2-micro",  
- "region": "us-east-2",  
- "type": "amazon-ebs",  
- "source_ami": "ami-55c324223gf0",  
- "ssh_username": "ubuntu"  
- }\],  
- "provisioners": \[{  
- "type": "shell",  
- "inline": \[  
- "sudo apt-get update",  
- "sudo apt-get install -y php apache2",  
- \],  
- "environment_vars": \[  
- "DEBIAN_FRONTEND=noninteractive"  
- \]  
- }\]  
+```
+{
+ "builders": [{
+ "ami_name": "packer-image",
+ "instance_type": "t2-micro",
+ "region": "us-east-2",
+ "type": "amazon-ebs",
+ "source_ami": "ami-55c324223gf0",
+ "ssh_username": "ubuntu"
+ }],
+ "provisioners": [{
+ "type": "shell",
+ "inline": [
+ "sudo apt-get update",
+ "sudo apt-get install -y php apache2",
+ ],
+ "environment_vars": [
+ "DEBIAN_FRONTEND=noninteractive"
+ ]
+ }]
 }
+```
 
 #### Orchestration Tools
 
@@ -108,15 +113,17 @@ Provisioning tools go beyond defining code and configuration that runs on each s
 
 Here’s an example code to deploy a web server using Terraform:
 
-resource "aws_instance" "webserver" {  
- instance_type = "t2.micro"  
- availability_zone = "us-east-2a"  
+```
+resource "aws_instance" "webserver" {
+ instance_type = "t2.micro"
+ availability_zone = "us-east-2a"
  ami = "ami-0c55b159cbfafeif0"
 
-user-data = <<-EOF  
- #!/bin/bash  
- sudo service apache2 start  
- EOF  
+user-data = <<-EOF
+ #!/bin/bash
+ sudo service apache2 start
+ EOF
 }
+```
 
 With these IaC tools, organizations can significantly enhance the software delivery process and manage infrastructure with a smaller team of engineers.

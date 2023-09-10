@@ -5,7 +5,7 @@ theme = ["ananke"]
 
 DefaultContentLanguage = "en"
 SectionPagesMenu = "main"
-Paginate = 5 # this is set low for demonstrating with dummy content. Set to a higher number
+Paginate = 6 # this is set low for demonstrating with dummy content. Set to a higher number
 googleAnalytics = ""
 enableRobotsTXT = true
 disqusShortname = "pengbin-org"
