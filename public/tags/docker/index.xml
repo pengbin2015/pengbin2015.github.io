@@ -5,7 +5,7 @@
     <link>https://pengbin.org/tags/docker/</link>
     <description>Recent content in Docker on Peng Bin&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Tue, 13 Mar 2018 18:00:00 +0000</lastBuildDate><atom:link href="https://pengbin.org/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>如何配置docker使用HTTP代理</title>
@@ -30,7 +30,9 @@ export HTTPS_PROXY=&amp;#34;http://127.0.0.1:3128/&amp;#34;
       <pubDate>Fri, 09 Feb 2018 10:00:00 +0000</pubDate>
       
       <guid>https://pengbin.org/2018/02/09/docker-without-sudo/</guid>
-      <description>Add the docker group if it doesn&amp;rsquo;t already exist: sudo groupadd docker Add the connected user &amp;ldquo;$USER&amp;rdquo; to the docker group. Change the user name to match your preferred user if you do not want to use your current user: sudo gpasswd -a $USER docker Either do a newgrp docker or log out/in to activate the changes to groups.</description>
+      <description>Add the docker group if it doesn&amp;rsquo;t already exist: sudo groupadd docker
+Add the connected user &amp;ldquo;$USER&amp;rdquo; to the docker group. Change the user name to match your preferred user if you do not want to use your current user: sudo gpasswd -a $USER docker
+Either do a newgrp docker or log out/in to activate the changes to groups. </description>
     </item>
     
   </channel>
