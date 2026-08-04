@@ -1,0 +1,5 @@
+---
+title: "Notes"
+---
+
+This is where I share working notes, study notes, and shorter technical references.

@@ -1,0 +1,6 @@
+---
+title: "About"
+image: images/pengbin.jpg
+---
+
+I am Peng Bin. This site is for personal branding, technical articles, DevOps and software systems writing, AI engineering notes, and PhD research articles.

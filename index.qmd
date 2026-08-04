@@ -1,0 +1,26 @@
+---
+title: "Home"
+listing:
+  contents: posts
+  type: default
+  sort: "date desc"
+  max-items: 3
+  fields: [date, title, description, categories]
+page-layout: full
+---
+
+::: {.home-intro}
+<div class="home-intro__portrait" role="img" aria-label="Portrait of Peng Bin"></div>
+
+::: {.home-intro__content}
+::: {.home-intro__identity}
+Educator · Industry Practitioner · Writer
+:::
+
+I am Peng Bin, a software engineering educator and university Principal Lecturer. Before moving into education, I spent more than 20 years in the software industry, working in technical and leadership roles across the public and private sectors.
+
+I help university students and working professionals understand and apply modern software and AI engineering practices. I teach and write about software systems, DevOps, cloud computing, AI engineering, and developer tools. My goal is to make complex technology clear, practical, and useful.
+:::
+:::
+
+## Recent Writing

@@ -1,0 +1,53 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+    - "posts/**/*.qmd"
+
+website:
+  title: "Peng Bin"
+  site-url: "https://pengbin.org"
+  description: "Personal writing on DevOps, software systems, AI engineering, and PhD research."
+  google-analytics: "G-7T4MC62N51"
+  navbar:
+    title: false
+    left:
+      - text: Home
+        href: index.qmd
+      - text: Blog
+        href: writing.qmd
+      - text: Research
+        href: research.qmd
+      - text: Teaching
+        href: teaching.qmd
+      - text: Notes
+        href: notes.qmd
+      - text: Projects
+        href: projects.qmd
+    right:
+      - icon: github
+        href: https://github.com/pengbin2015
+      - icon: linkedin
+        href: https://www.linkedin.com/in/bin-peng-4842065
+      - icon: twitter
+        href: https://twitter.com/binpengwalker
+  page-footer:
+    left: "Copyright 2026 Peng Bin"
+    right:
+      - text: GitHub
+        href: https://github.com/pengbin2015
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    css: styles.css
+    toc: true
+    code-copy: true
+    code-overflow: wrap
+    link-external-newwindow: true
+
+execute:
+  freeze: auto
