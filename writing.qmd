@@ -1,5 +1,6 @@
 ---
 title: "Blog"
+description: "Technical articles on software systems, DevOps, cloud computing, AI engineering, and developer tools."
 listing:
   contents: posts
   type: default
@@ -7,5 +8,3 @@ listing:
   categories: true
   fields: [date, title, description, categories]
 ---
-
-Technical articles, research notes, and practical writing on software systems, DevOps, and AI engineering.

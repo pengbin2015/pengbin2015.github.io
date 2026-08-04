@@ -1,5 +1,4 @@
 ---
 title: "Research"
+description: "Research writing, reading notes, and academic work."
 ---
-
-Notes and articles from my PhD research will be collected here.

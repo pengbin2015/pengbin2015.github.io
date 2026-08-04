@@ -1,5 +1,6 @@
 ---
 title: "About"
+description: "Background information about Peng Bin, including teaching, industry experience, and technical interests."
 image: images/pengbin.jpg
 ---
 

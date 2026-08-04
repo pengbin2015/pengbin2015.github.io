@@ -1,5 +1,6 @@
 ---
 title: "Notes"
+description: "Research notes, study notes, and technical references."
 listing:
   contents:
     - "notes/*.qmd"
@@ -7,5 +8,3 @@ listing:
   sort: "date desc"
   fields: [date, title, description, categories]
 ---
-
-This is where I share working notes, study notes, and shorter technical references.

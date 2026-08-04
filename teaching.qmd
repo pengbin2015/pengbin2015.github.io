@@ -1,5 +1,4 @@
 ---
 title: "Teaching"
+description: "Teaching materials, workshops, and course notes on software and AI engineering."
 ---
-
-Teaching materials, workshops, and course notes will be collected here.

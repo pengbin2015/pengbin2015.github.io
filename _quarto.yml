@@ -10,6 +10,17 @@ website:
   title: "Peng Bin"
   site-url: "https://pengbin.org"
   description: "Personal writing on DevOps, software systems, AI engineering, and PhD research."
+  repo-url: "https://github.com/pengbin2015/pengbin2015.github.io"
+  favicon: images/pengbin-headshot.png
+  image: images/pengbin-headshot.png
+  image-alt: "Portrait of Peng Bin"
+  open-graph:
+    locale: en_SG
+    site-name: "Peng Bin"
+  twitter-card:
+    creator: "@binpengwalker"
+    site: "@binpengwalker"
+    card-style: summary
   google-analytics: "G-7T4MC62N51"
   navbar:
     title: false
@@ -45,6 +56,7 @@ format:
       light: cosmo
       dark: darkly
     css: styles.css
+    canonical-url: true
     toc: true
     code-copy: true
     code-overflow: wrap
