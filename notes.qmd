@@ -1,5 +1,11 @@
 ---
 title: "Notes"
+listing:
+  contents:
+    - "notes/*.qmd"
+  type: default
+  sort: "date desc"
+  fields: [date, title, description, categories]
 ---
 
 This is where I share working notes, study notes, and shorter technical references.

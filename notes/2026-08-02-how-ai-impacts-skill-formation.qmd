@@ -1,0 +1,33 @@
+---
+title: "How AI Impacts Skill Formation"
+date: 2026-08-02
+description: "A summary of Shen and Tamkin's 2026 randomized study on how AI assistance affects immediate learning in unfamiliar programming tasks."
+categories:
+  - AI Engineering
+  - Research Notes
+  - Software Education
+---
+
+**Paper URL:** [arXiv:2601.20245](https://arxiv.org/abs/2601.20245)
+
+**arXiv subjects:** `cs.CY` (Computers and Society), `cs.AI` (Artificial Intelligence), `cs.HC` (Human-Computer Interaction)
+
+This paper asks a simple but important question: when AI helps people finish unfamiliar work, does it also weaken learning?
+
+Shen and Tamkin study this with a randomized experiment. They recruited 52 Python developers who had not used the Trio asynchronous-programming library before. One group completed two Trio tasks with a GPT-4o-based coding assistant. The other completed the same tasks without AI. Afterward, both groups took an unaided 27-point assessment covering conceptual understanding, code reading, and debugging.
+
+The main result is hard to ignore. The AI group scored 4.15 points lower on the quiz, a drop of about 17% (*d* = 0.738, *p* = .010). The AI group also was not significantly faster in the main study. The paper therefore does not support the easy story that AI both speeds work and teaches the skill along the way.
+
+The result matters, but its scope is narrow. What the paper shows is a **short-term learning penalty** in one controlled coding setting. It does not show long-term deskilling. It does show that immediate independent understanding can suffer when people rely on AI to get through unfamiliar technical work.
+
+Three points seem especially useful for future research.
+
+First, the likely mechanism is cognitive offloading. Some participants appear to have handed too much code generation and debugging work to the assistant. That reduced the need to reason through Trio itself.
+
+Second, debugging may be where much of the learning happens. The control group ran into more errors, and that may have forced them to inspect behavior, diagnose problems, and build a better mental model of the library. If that is right, AI may not just save time. It may also remove the struggle that teaches.
+
+Third, interaction style matters. The authors report that more engaged uses of AI, such as asking conceptual or explanatory questions, were linked to better outcomes than simple delegation. That is an important design clue. The question may not be whether people use AI, but how they use it.
+
+The main limitation is external validity. This was a short study, focused on one unfamiliar library, with an assessment given immediately after the task. It would be a mistake to turn this into a broad claim that AI inevitably harms expertise in every domain. The paper supports a narrower claim: under these conditions, AI reduced immediate unaided performance on the target skill.
+
+For my own research, the paper is most useful as a starting point for stronger longitudinal work. The next studies should test retention after a delay, transfer to new tasks, debugging ability, and the difference between delegation-style AI use and explanation-style AI use. That is where the more important question sits: not whether AI changes learning, but when it supports real competence and when it produces only shallow task completion.

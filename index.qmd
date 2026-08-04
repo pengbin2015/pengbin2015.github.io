@@ -1,7 +1,9 @@
 ---
 title: "Home"
 listing:
-  contents: posts
+  contents:
+    - posts
+    - "notes/*.qmd"
   type: default
   sort: "date desc"
   max-items: 3
