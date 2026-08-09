@@ -4,6 +4,7 @@ description: "Research notes, study notes, and technical references."
 listing:
   contents:
     - "notes/*.qmd"
+    - "notes/*.md"
   type: default
   sort: "date desc"
   fields: [date, title, description, categories]
