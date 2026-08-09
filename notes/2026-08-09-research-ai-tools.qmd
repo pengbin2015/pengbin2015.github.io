@@ -10,6 +10,7 @@ categories:
 AI tools can be useful for research, especially if you are new to research. However, they work best as an accelerator that helps you think more, not as a substitute for your own thinking.
 
 Here are some AI tools that I use in my research workflow.
+
 | Research Task | Tools | What you can use them for |
 |----------------|-------|----------------------------|
 | Learning unfamiliar concepts | ChatGPT, Claude, Gemini | Explain theories, terminology, and concepts; act as a tutor |
