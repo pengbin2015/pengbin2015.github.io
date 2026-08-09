@@ -23,6 +23,17 @@ website:
     site: "@binpengwalker"
     card-style: summary
   google-analytics: "G-7T4MC62N51"
+  comments:
+    giscus:
+      repo: pengbin2015/pengbin2015.github.io
+      mapping: pathname
+      reactions-enabled: true
+      input-position: top
+      loading: lazy
+      theme:
+        light: light
+        dark: dark_dimmed
+      language: en
   navbar:
     title: false
     left:
