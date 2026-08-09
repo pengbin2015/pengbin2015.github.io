@@ -3,9 +3,9 @@ title: "Reading Session - Code with Me or for Me?"
 date: 2026-08-06
 description: "Reading notes on how increasing AI automation changes developer workflows, effort, and control."
 categories:
-	- Research Notes
-	- Human-AI Collaboration
-	- AI Tools
+  - Research Notes
+  - Human-AI Collaboration
+  - AI Tools
 ---
 
 # Reading session - Code with Me or for Me?

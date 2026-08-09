@@ -3,9 +3,9 @@ title: "Reading Session - Scaffolding Human-AI Collaboration"
 date: 2026-08-04
 description: "Reading notes on a field experiment about behavioral and cognitive scaffolds in human-AI collaboration."
 categories:
-	- Research Notes
-	- Human-AI Collaboration
-	- AI Tools
+  - Research Notes
+  - Human-AI Collaboration
+  - AI Tools
 ---
 
 # Reading session - Scaffolding Human-AI Collaboration
