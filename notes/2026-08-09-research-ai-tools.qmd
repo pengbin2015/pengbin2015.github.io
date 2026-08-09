@@ -19,4 +19,5 @@ Here are some AI tools that I use in my research workflow.
 | Managing references | Zotero | Store PDFs, notes, metadata and citations; this is not primarily an AI tool |
 | Reading a collection of papers | Gemini Notebook | Ask questions across papers, compare them and locate relevant information |
 
+
 Of course, there are some cautions when using AI tools for research. First, hallucination is the classic trap. AI tools can confidently generate plausible-sounding but non-existent papers. Always find and read the actual paper yourself before citing it. Second, there is also a skill-formation issue. Don't become an "AI-dependent researcher". As a researcher, you need to train yourself to read critically, synthesize literature, and write scholarly arguments. If you fully depend on AI tools, you won't develop the muscles to do these things yourself. Third, AI tools tend to give you an "average" view of a field and may miss recent work, niche subfields, or contrarian perspectives that could be where your contribution lies.
