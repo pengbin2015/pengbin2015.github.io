@@ -1,0 +1,21 @@
+---
+title: "AI Tools used in Research"
+date: 2026-08-09
+description: "A list of AI tools used to accelerate research."
+categories:
+  - AI Tools
+  - Research Notes
+  - Academic Productivity
+---
+AI tools can be useful for research, especially if you are new to research. However, they work best as an accelerator that helps you think more, not as a substitute for your own thinking.
+
+Here are some AI tools that I use in my research workflow.
+| Research Task | Tools | What you can use them for |
+|----------------|-------|----------------------------|
+| Learning unfamiliar concepts | ChatGPT, Claude, Gemini | Explain theories, terminology, and concepts; act as a tutor |
+| Find and screen papers | Semantic Scholar, Elicit, Consensus | Initial literature discovery and identifying important papers |
+| Exploring related literature | ResearchRabbit | Visualize citation networks and discover related papers |
+| Managing references | Zotero | Store PDFs, notes, metadata and citations; this is not primarily an AI tool |
+| Reading a collection of papers | Gemini Notebook | Ask questions across papers, compare them and locate relevant information |
+
+Of course, there are some cautions when using AI tools for research. First, hallucination is the classic trap. AI tools can confidently generate plausible-sounding but non-existent papers. Always find and read the actual paper yourself before citing it. Second, there is also a skill-formation issue. Don't become an "AI-dependent researcher". As a researcher, you need to train yourself to read critically, synthesize literature, and write scholarly arguments. If you fully depend on AI tools, you won't develop the muscles to do these things yourself. Third, AI tools tend to give you an "average" view of a field and may miss recent work, niche subfields, or contrarian perspectives that could be where your contribution lies.
