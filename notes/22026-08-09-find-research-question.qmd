@@ -1,0 +1,61 @@
+---
+title: "Finding a Research Question"
+date: 2026-08-09
+description: "Detailed notes from The Craft of Research on moving from personal interests to focused topics and research questions."
+categories:
+  - Research Skills
+  - Research Notes
+  - Academic Training
+---
+
+**Source:** *The Craft of Research*, by Wayne C. Booth, Gregory G. Colomb, and Joseph M. Williams. [Publisher page for the current edition](https://press.uchicago.edu/ucp/books/book/chicago/C/bo215874008).
+
+**Publisher subjects:** Guides, Manuals, and Reference; Guides for College Students; Guides for Graduate Students.
+
+*The Craft of Research* helps answer a basic beginner’s question: what are researchers trying to accomplish? Research is more than running experiments, searching for sources, or collecting data. Its aim is to share knowledge and insight with other people.
+
+Communication is therefore central to research. Writing and presentation are not optional finishing steps. They shape whether readers can understand, assess, and use the work.
+
+Writing is an imagined conversation: unlike a spoken conversation, the writer cannot correct a reader’s misunderstanding in real time. We therefore need to consider our audience carefully. The book describes three roles a writer can take:
+
+- A reporter gives a general audience new and interesting information.
+- A problem solver addresses a practical problem for working professionals.
+- A scholar answers a conceptual question for an academic audience that wants to advance knowledge in a field.
+
+For most academic research, the third role is the relevant one. Scholars want more than facts. They want explanations and frameworks that deepen their understanding of a field.
+
+## From interests to a focused topic
+
+Once we understand the audience and our role, the next task is to decide what question our research will answer. As beginner researchers, we may not be able to identify a strong research question immediately. The process begins with a topic drawn from our interests. We then narrow that topic to a manageable scope and question it until we find a problem that can become a research question.
+
+A useful first exercise is to list as many interests as possible—ten or more—without feeling pressure to decide. The point is to generate directions worth exploring.
+
+For me, one interest comes from my many years in software development: understanding how people interact with computer systems, the field of human-computer interaction (HCI). Researchers and practitioners have worked on HCI for many years. But the integration of AI, especially generative AI, into computer systems and software-development practices opens new areas to explore. These include:
+
+- AI’s impact on human-computer interaction;
+- AI’s role in learning new skills; and
+- the integration of AI into software-development practices.
+
+After listing interests, we can learn more about related subjects. To build a basic understanding, we can skim recent issues of journals in the field, read conference calls for papers, and ask experienced researchers for advice. These activities help us see what the field considers important, what questions are active, and where a topic may be brought into focus.
+
+Developing topics into tentative claims can also help us devise research questions and imagine the argument we may eventually make. I am not yet at this stage; for now, I am still working to identify and focus promising topics.
+
+## From a focused topic to a research question
+
+One common pitfall for new researchers is to read many papers and documents without a clear question in mind. Serious researchers do not gather information for its own sake. They use information to support answers to questions worth asking. A research question directs us toward the information we need.
+
+To turn a focused topic into a research question, ask the following kinds of questions:
+
+1. **Ask about the topic’s history.** How does it fit into a larger developmental context? What events, discoveries, or debates have shaped the field? Historical context can reveal gaps in knowledge and areas for further exploration.
+
+2. **Ask about its structure and composition.** What are the topic’s main components or elements? How do they relate to one another? Examining its structure can reveal patterns, relationships, and possible lines of investigation.
+
+3. **Ask how the topic is categorized.** What classifications or types exist within it? How do they differ? Categorization can identify subtopics or niches worth exploring.
+
+4. **Ask “what if?” and other speculative questions.** What might happen under different conditions? What are the implications or consequences of different scenarios? Speculative questions can stimulate creative thinking and generate new research ideas.
+
+5. **Ask questions suggested by sources.** What questions do authors raise? What future directions do they propose? Engaging with the literature can provide ideas and help refine a question.
+
+6. **Evaluate the questions.** Look for questions whose answers might make you—and ideally your readers—see the topic in a new way. The question should be neither too broad nor too narrow for the time and resources available. Avoid questions with answers that are settled facts one could simply look up. Questions that ask *how* or *why* often invite deeper thinking than questions about who, what, when, or where. Also avoid questions whose answers cannot be supported by reasonably obtainable evidence, or that are likely to lead nowhere.
+
+Once you have several promising questions, try combining them into a larger one. This is another way to bring a topic into focus and begin imagining the argument the research might make.
