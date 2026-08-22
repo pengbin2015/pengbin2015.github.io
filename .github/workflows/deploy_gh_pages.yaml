@@ -39,12 +39,12 @@ jobs:
       - name: Render site
         run: quarto render
       - name: Package Pages artifact
-        run: tar --dereference --hard-dereference -czf "$RUNNER_TEMP/artifact.tar.gz" --directory "./_site" .
+        run: tar --dereference --hard-dereference -cvf "$RUNNER_TEMP/artifact.tar" --directory "./_site" --exclude=.git --exclude=.github --exclude=".[^/]*" .
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
           name: github-pages
-          path: ${{ runner.temp }}/artifact.tar.gz
+          path: ${{ runner.temp }}/artifact.tar
           retention-days: 1
 
   deploy:
