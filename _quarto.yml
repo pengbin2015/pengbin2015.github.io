@@ -12,8 +12,8 @@ website:
   site-url: "https://pengbin.org"
   description: "Personal writing on DevOps, software systems, AI engineering, and PhD research."
   repo-url: "https://github.com/pengbin2015/pengbin2015.github.io"
-  favicon: images/pengbin-headshot.png
-  image: images/pengbin-headshot.png
+  favicon: images/pengbin.jpg
+  image: images/pengbin.jpg
   image-alt: "Portrait of Peng Bin"
   open-graph:
     locale: en_SG
