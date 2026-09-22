@@ -1,6 +1,6 @@
 ---
 title: "Why Forward Deployed Engineers Are Suddenly Everywhere"
-description: "Forward deployed engineers help turn AI prototypes into production systems by combining software engineering, systems integration, customer discovery, and outcome ownership."
+description: ""
 date: "2026-09-22"
 categories:
   - AI Engineering
@@ -32,9 +32,7 @@ Building an AI demo has become remarkably easy.
 
 With an LLM API, a framework and some sample data, a small team can produce a chatbot, RAG application, coding assistant or agent surprisingly quickly.
 
-Then someone asks:
-
-**How do we put this into production?**
+Then someone asks: "How do we put this into production?"
 
 That is where things become difficult.
 
@@ -48,8 +46,6 @@ AI has made prototyping much easier. It has not made real-world deployment easy.
 
 In fact, the flexibility of AI may make deployment more complicated. The same model could potentially support customer service, legal analysis, procurement, software development or financial operations. Someone still has to determine which problem is worth solving, understand the workflow, design the surrounding software and prove that the resulting system delivers value.
 
-That requires more than prompt engineering.
-
 ## So what does an FDE actually do?
 
 This is where the job title becomes confusing.
@@ -60,7 +56,7 @@ At Palantir, Forward Deployed Engineering is described as an operating model bui
 
 But even within Palantir, the technical work can vary enormously. Its Mixed Reality FDE role, for example, involves working with operators, designers and engineers on applications for environments such as factory floors and the battlefield.
 
-At OpenAI, the emphasis is naturally different. Its current FDE roles focus on deploying frontier AI models into production. OpenAI describes the job as owning the journey from **discovery and technical scoping through system design, implementation and production rollout**. Success is measured not simply by whether the system was delivered, but by production adoption and measurable workflow impact.
+At OpenAI, the emphasis is naturally different. Its current FDE roles focus on deploying frontier AI models into production. OpenAI describes the job as owning the journey from discovery and technical scoping through system design, implementation and production rollout. Success is measured not simply by whether the system was delivered, but by production adoption and measurable workflow impact.
 
 OpenAI is also already developing more specialised FDE positions. Its healthcare FDEs, for example, need to translate customer workflows, data, infrastructure and regulatory constraints into production AI systems, while its legal FDE roles work closely with legal practitioners on domain-specific workflows.
 
@@ -72,7 +68,7 @@ Those may be true for a particular company.
 
 They are not the definition of the role.
 
-The common thread is **customer proximity, technical depth, integration and ownership of the outcome**.
+The common thread is customer proximity, technical depth, integration and ownership of the outcome.
 
 ## What capabilities does an FDE need?
 
@@ -146,29 +142,29 @@ That shift—from *“Does my code work?”* to *“Does the solution work for t
 
 I would think about FDE preparation as layers rather than as one enormous list of technologies.
 
-Start with **software engineering**: programming, APIs, SQL and databases, testing, Git, debugging and system design.
+Start with software engineering: programming, APIs, SQL and databases, testing, Git, debugging and system design.
 
-Then build **production engineering** knowledge: Linux, cloud platforms, containers, CI/CD, authentication, networking, observability and security.
+Then build production engineering knowledge: cloud platforms, containers, CI/CD, authentication, networking, observability and security.
 
-Next comes **integration and data**: connecting systems, working with external APIs, data pipelines, data quality and dealing with failures between systems.
+Next comes integration and data: connecting systems, working with external APIs, data pipelines, data quality and dealing with failures between systems.
 
-For AI-focused FDE positions, add **applied AI engineering**: LLM APIs, retrieval, tool calling, agents, evaluation, tracing, guardrails, latency, cost and the failure modes of probabilistic systems.
+For AI-focused FDE positions, add applied AI engineering: LLM APIs, retrieval, tool calling, agents, evaluation, tracing, guardrails, latency, cost and the failure modes of probabilistic systems.
 
-Finally, develop **customer and business skills**: requirement discovery, workflow analysis, stakeholder communication, presentation, prioritisation and defining measurable outcomes.
+Finally, develop customer and business skills: requirement discovery, workflow analysis, stakeholder communication, presentation, prioritisation and defining measurable outcomes.
 
 This also explains why people can enter FDE from different backgrounds. Software engineers, DevOps engineers, data engineers, ML engineers and platform engineers may already possess different parts of the required capability stack. The challenge is usually filling the gaps rather than starting again from zero.
 
 ## Build projects that feel like real deployments
 
-For students and engineers preparing for the role, tutorials are useful—but they are not enough.
+For students and engineers preparing for the role, technical certificates are useful but they are not enough.
 
 I would encourage projects that contain some of the messiness of real FDE work: incomplete requirements, multiple systems, imperfect data, authentication, security constraints, deployment and measurable outcomes.
 
 The important practice is the complete delivery cycle:
 
-**Understand the problem → clarify requirements → design → integrate → deploy → evaluate → improve**
+Understand the problem → clarify requirements → design → integrate → deploy → evaluate → improve
 
-Document the decisions and trade-offs, not just the source code. A small number of projects showing this complete journey can demonstrate FDE readiness much better than a portfolio containing many isolated tutorials.
+Document the decisions and trade-offs, not just the source code. A small number of projects showing this complete journey can demonstrate FDE readiness much better than a portfolio containing many technical certificates.
 
 ## Perhaps FDE tells us something about the future of engineering
 
@@ -192,4 +188,4 @@ Perhaps that is why Forward Deployed Engineering is receiving so much attention 
 
 The valuable engineer of the AI era may not simply be the person who can build software fastest.
 
-It may increasingly be the person who can **understand a real problem, bring the right technologies together, deploy them in a messy environment, and make the whole thing actually work.**
+It may increasingly be the person who can understand a real problem, bring the right technologies together, deploy them in a messy environment, and make the whole thing actually work.
