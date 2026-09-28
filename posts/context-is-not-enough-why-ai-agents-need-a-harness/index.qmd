@@ -1,0 +1,178 @@
+---
+title: "Why AI Coding Agents Need a Harness"
+description: "AI coding agents need reliable context, controlled tools, persistent state, and executable checks. The harness brings these together around the model."
+date: 2026-09-28
+author: "Peng Bin"
+categories:
+  - AI Engineering
+  - Software Engineering
+  - AI Agents
+---
+
+Recently, I had a discussion with some software developers about AI coding agents: what does an agent need around the model before we can trust it to work on real software?
+
+Software teams have always struggled with fragmented knowledge. Requirements live in one place, architecture decisions in another, and critical assumptions in people's heads. A human developer can ask a colleague. An AI agent cannot unless we deliberately provide that knowledge.
+
+This makes context essential to AI-assisted software development. But context is only part of the story.
+
+We also need to pay attention to the harness: the software around the model that manages information, tools, state, permissions, execution, and feedback.
+
+## From intent to action
+
+I find this sequence useful:
+
+**Intent → Context → Harness → Model → Action**
+
+**Intent** is what we want to achieve. “Add a password-reset feature” sounds simple, but it may include security requirements, user expectations, existing authentication rules, and a definition of what counts as complete.
+
+**Context** makes that intent usable by the agent. It includes specifications, source code, architecture documentation, API definitions, previous decisions, and acceptance criteria.
+
+**The harness** determines how the agent works with that context. It exposes tools, controls permissions, maintains state, executes commands, returns feedback, and decides when approval or verification is required.
+
+**The model** provides the reasoning capability: interpreting the task, deciding what to do next, and proposing code or tool calls.
+
+A simple way to remember the distinction is:
+
+Intent defines the goal. Context provides the knowledge. The model provides intelligence. The harness turns that intelligence into controlled action.
+
+This matters when things go wrong.
+
+If an agent repeatedly violates an architectural rule, the answer may not be a better prompt or a more capable model. The rule may need to become an architecture test, linter, or CI check that gives the agent immediate feedback.
+
+That is harness engineering.
+
+## Guidance, control, and evidence
+
+I find it useful to think about the harness in three parts:
+
+Guidance before action. Control during action. Evidence after action.
+
+Guidance tells the agent how it should work: specifications, coding conventions, architecture rules, examples, and task plans.
+
+Control determines what it is actually allowed to do: filesystem permissions, available tools, sandbox boundaries, approval gates, and deployment restrictions.
+
+Evidence tells us whether the work succeeded: unit tests, integration tests, static analysis, logs, security scans, and human or agent review.
+
+The distinction between guidance and control is especially important.
+
+Writing:
+
+“Do not deploy directly to production.”
+
+in an instruction file is guidance.
+
+A deployment system that requires approval before production access is control.
+
+Similarly, an agent saying:
+
+“The feature is complete.”
+
+is only a claim.
+
+A passing set of acceptance tests provides evidence.
+
+## What this looks like in practice
+
+Suppose we ask an agent to build an order-cancellation API:
+
+- only pending orders can be cancelled;
+
+- payments must be refunded;
+
+- an audit event must be recorded;
+
+- existing clients must continue to work.
+
+That gives the agent useful intent and context.
+
+The harness makes implementation possible. It gives the agent repository-search tools and a controlled workspace. It lets the agent run tests against a payment sandbox. Failures are returned to the agent so it can diagnose and revise its implementation.
+
+The workflow might then verify that a shipped order cannot be cancelled, a retry does not create a second refund, the audit event is written correctly, and existing clients remain compatible.
+
+Only after those checks pass should the change be considered ready for human review.
+
+This is the relationship I find most useful:
+
+Context explains what should happen. The harness enables, constrains, and verifies what the agent actually does.
+
+## Autonomy makes the harness more important
+
+A chatbot may follow a simple pattern:
+
+prompt → response
+
+A coding agent may instead:
+
+understand → plan → inspect → modify → test → fail → retry → review → pull request
+
+The longer that process runs, the more the surrounding system matters.
+
+Anthropic has described using progress records, Git history, structured task lists, and end-to-end tests to help coding agents continue work across multiple context windows.
+
+OpenAI has similarly described making repository knowledge, application behaviour, logs, tests, and architectural constraints easier for coding agents to inspect and act upon.
+
+The lesson I take from these examples is straightforward:
+
+**better models still need well-designed environments.**
+
+As agents become more capable, engineering does not disappear. Some of it moves outward, from writing every line ourselves to designing the conditions under which agents can work effectively.
+
+## Three engineering disciplines meet
+
+I increasingly see AI-assisted software development as the intersection of three disciplines:
+
+| Discipline | Main question |
+|---|---|
+| Requirements and product engineering | What are we trying to achieve, and what counts as success? |
+| Context engineering | What does the agent need to know, and when does it need to know it? |
+| Harness engineering | What can the agent do, how is it controlled, and how do we know the result is correct? |
+
+These responsibilities overlap.
+
+An acceptance criterion starts as a product decision and may later become an executable test. A test failure becomes new context for the next model call. A security policy may begin as guidance but should often become an enforced control.
+
+This also connects two areas I teach.
+
+In AI-Augmented SDLC, the focus is largely on making coding agents effective: giving them the right context, tools, workflows, feedback, and coordination mechanisms to contribute useful software changes.
+
+In Deploy Secure AI Agent, the focus shifts toward control: restricting tool access, handling untrusted input, protecting state, enforcing permissions, and deciding when human approval is required.
+
+They are two sides of the same problem.
+
+A useful harness must make an agent capable enough to do the work, while constrained enough to do only the work it should.
+
+## What I would put around a coding agent
+
+For a team adopting coding agents, I would start with six things:
+
+1. Reliable context — current requirements, architecture decisions, and constraints.
+
+2. Controlled tool access — only the files, commands, and services needed for the task.
+
+3. Persistent state — decisions, progress, unresolved issues, and verification results.
+
+4. Executable checks — tests, linters, policy checks, and CI rules that give useful feedback.
+
+5. Clear completion criteria — explicit evidence that defines when the work is done.
+
+6. Human control points — decisions where judgement or approval should not be delegated.
+
+None of these are completely new problems.
+
+Software engineers already deal with unclear requirements, stale documentation, excessive permissions, weak tests, and unreliable feedback.
+
+AI agents simply make the consequences more immediate because they can act quickly and repeatedly.
+
+So when an agent fails, I want to ask more than:
+
+“Was the prompt good enough?”
+
+I also want to ask:
+
+“Which part of the environment failed to inform, constrain, or verify the agent?”
+
+That is the shift I want students and software engineers to understand.
+
+We are no longer only engineering software.
+
+We are increasingly engineering the system that helps build the software.
