@@ -1,6 +1,6 @@
 ---
 title: "Why AI Coding Agents Need a Harness"
-description: "AI coding agents need reliable context, controlled tools, persistent state, and executable checks. The harness brings these together around the model."
+description: "AI coding agents need context, controlled tools, persistent state, and checks that verify their work."
 date: 2026-09-28
 author: "Peng Bin"
 categories:
