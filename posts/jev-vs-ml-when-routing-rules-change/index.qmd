@@ -154,8 +154,6 @@ I would also record **what the customer needs** separately from **which queue ha
 
 These findings come from one simulated reorganisation, 600 test requests and one configuration of one small language model. Real tickets are messier, and the models may have seen this public dataset during training.
 
-I started by asking whether we needed another classifier. I finished with two different questions: **how often do our routing rules change, and how will we catch wrong decisions?**
-
 ::: {.callout-note collapse="true"}
 ## Additional experiment details
 
