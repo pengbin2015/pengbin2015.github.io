@@ -1,0 +1,156 @@
+---
+title: "Jev vs ML: When Routing Rules Change"
+date: 2026-10-01
+categories: [AI, Machine Learning, Enterprise AI, Software Engineering]
+---
+
+Recently, I came across [Jev](https://docs.typesafe.ai/introduction), TypeSafe’s model for making structured decisions. My first reaction was: **do we really need another classifier?** A classifier assigns an input, such as a customer request, to a category.
+
+For “I don’t recognise this ATM withdrawal”, a chatbot might draft a reply. A routing system needs a destination. Jev selects from predefined choices and reports how certain it is.
+
+Traditional machine learning (ML) already handles classification well. Where would Jev help?
+
+The interesting part turned out to be what happens **when the business changes the rules**.
+
+## Same message, different destination
+
+Imagine a bank routing requests into seven **business queues**: destinations for responsible teams or workflows. I called this initial set **V1**.
+
+| V1 queue | What it handles |
+|---|---|
+| `CARD_SERVICES` | Card delivery, activation, PINs and administration |
+| `CARD_PAYMENTS` | Card purchases and payment problems |
+| `CASH_WITHDRAWAL` | ATM and withdrawal problems |
+| `TRANSFERS` | Sending and receiving transfers |
+| `TOP_UPS` | Adding money to an account |
+| `ACCOUNT_ACCESS` | Account access and administration |
+| `CURRENCY` | Currency support and exchange |
+
+The bank then separates everyday service, security incidents and identity checks, and groups digital-payment problems together. The revised set, **V2**, has nine queues:
+
+| V2 queue | What it handles |
+|---|---|
+| `CARD_MANAGEMENT` | Card issuance, activation, PINs and operation |
+| `DIGITAL_PAYMENTS` | Card, contactless and mobile payments; refunds and charges |
+| `CASH_WITHDRAWAL` | Ordinary ATM and withdrawal problems |
+| `TRANSFERS` | Sending and receiving transfers |
+| `TOP_UPS` | Adding money and related problems |
+| `ACCOUNT_SERVICES` | Account access, personal details and administration |
+| `IDENTITY_COMPLIANCE` | Verifying identity and where funds come from |
+| `SECURITY_DISPUTES` | Unrecognised transactions, suspected compromise and lost or stolen cards or phones |
+| `CURRENCY` | Currency support and exchange |
+
+An ATM failing to dispense cash still goes to `CASH_WITHDRAWAL`. But our unrecognised withdrawal now goes to `SECURITY_DISPUTES`, because it needs a security investigation. The message hasn’t changed. **The correct destination has.**
+
+## How I tested it
+
+I used [PolyAI’s BANKING77 dataset from Hugging Face](https://huggingface.co/datasets/PolyAI/banking77): 13,083 queries with 77 categories, split into 10,003 training and 3,080 test examples. I mapped them into V1/V2 queues and fixed a 600-request evaluation set.
+
+Models received customer text, never the original intent or evaluation labels. Those stayed with the evaluator.
+
+The key difference was **learning from examples versus selecting from descriptions**. A labelled example is a request with its correct queue recorded.
+
+- **TF-IDF + Logistic Regression:** learns word patterns from labelled requests—“ATM” and “withdrawal”, for example. Despite its name, Logistic Regression assigns categories here; the tables shorten it to **LR**.
+- **MiniLM embeddings + LR:** first represents meaning as numbers, called *embeddings*. This helps connect “my transfer hasn’t arrived” with “the recipient hasn’t received the money”. It then learns queues from labelled requests.
+- **Qwen3-4B:** a small language model—a compact model trained on language—asked to choose a queue using its description.
+- **Jev:** a model designed to choose between defined options, given the same queue descriptions.
+
+**Accuracy** is the proportion correct. **Macro-F1** gives every queue equal weight and penalises both wrongly routed requests and missed cases; 1.0 is perfect. **p50 latency** is the median response time: half the decisions finish sooner, half later.
+
+## Test 1: ordinary ML was already strong
+
+The two classifiers that learn from labelled examples used all 10,003 V1 training requests.
+
+| Model | Macro-F1 | Accuracy | p50 latency |
+|---|---:|---:|---:|
+| TF-IDF + LR | **0.9588** | **0.9600** | **0.370 ms** |
+| MiniLM + LR | 0.9508 | 0.9567 | 13.338 ms |
+
+TF-IDF was slightly more accurate and about **36 times faster**. Distinctive banking words likely helped it.
+
+It was a useful reminder for me: a newer model needs to earn its place.
+
+## Test 2: change the queues
+
+I reused historical training data for **transfers, top-ups and currency**, whose old queues still identified one clear destination. Where an old queue split across several new ones, I excluded those ambiguous labels.
+
+For six affected V2 queues, I supplied **20 or 100 newly labelled requests per queue**: 120 or 600 total. I repeated each training condition with five different random samples. Qwen and Jev received the same V2 descriptions and **zero examples of correct V2 routing**, called “zero-shot”. Neither was retrained.
+
+| Method | New V2 labels | Macro-F1 | Range across five runs |
+|---|---:|---:|---:|
+| Qwen3-4B | 0 | 0.7749 | — |
+| **Jev** | **0** | **0.8954** | — |
+| TF-IDF + LR | 120 | 0.6810 | 0.6549–0.7114 |
+| MiniLM + LR | 120 | 0.8460 | 0.8261–0.8633 |
+| TF-IDF + LR | 600 | 0.8864 | 0.8795–0.9003 |
+| MiniLM + LR | 600 | **0.9065** | 0.8958–0.9172 |
+
+![V2 Macro-F1 against the number of newly labelled examples. Jev scores 0.8954 with zero new labels; MiniLM plus Logistic Regression scores 0.9065 with 600. Vertical bars show supervised minimum-to-maximum ranges across five draws.](v2-label-efficiency.png)
+
+With 120 labels, MiniLM beat TF-IDF by **16.5 Macro-F1 points**; at 600, the gap narrowed to two. Its existing knowledge of language appears useful when examples are scarce. The trained-classifier scores are five-run averages.
+
+Jev surprised me: **0.8954 without new labels**, just 1.1 points below MiniLM with 600. A small gap doesn’t establish equivalent performance, but it makes Jev worth investigating.
+
+Of requests Qwen sent to security, only **43.00%** belonged there, versus **95.24%** for Jev.
+
+## Fast decisions, or fast adaptation?
+
+| Method | Test | Observed p50 latency |
+|---|---|---:|
+| TF-IDF + LR | V1 | **0.370 ms** |
+| MiniLM + LR | V1 | 13.338 ms |
+| Jev API | V2 | 684.89 ms |
+| Qwen3-4B local | V2 | 1,214.45 ms |
+
+Jev’s 600 requests cost **$0.013691**, about **$0.0228 per 1,000 decisions**, excluding other operating costs. Qwen ran on my laptop; Jev used an online service, so timings reflect those deployments.
+
+Traditional ML was much faster per request. Jev let me test changed rules without collecting new labels first. **I didn’t measure total adaptation time**; new descriptions still need testing before deployment.
+
+## Confidence needs checking too
+
+Jev gave its chosen queue an average probability of **94.43%**, but chose correctly **89.00%** of the time. It was somewhat overconfident.
+
+But ranking requests by its confidence score revealed a useful review strategy:
+
+| Lowest-confidence requests reviewed | Requests | Share of errors surfaced |
+|---|---:|---:|
+| 10% | 60 | 36.4% |
+| **20%** | **120** | **59.1%** |
+| 30% | 180 | 72.7% |
+
+Reviewing one-fifth of requests would have surfaced nearly three-fifths of errors. I calculated this afterwards; I didn’t test whether reviewers would correct them.
+
+**The model proposes a decision. Software decides what happens next.**
+
+## What I would take into a real project
+
+The results suggest four practical choices:
+
+- **If the kinds of requests and the teams handling them rarely change, and you have many examples showing which team should handle each request:** start with TF-IDF + LR. It worked well here and responded quickly.
+- **If responsibilities have changed and you can identify the right team for a small number of requests:** try MiniLM + LR. In this test, it learned which team should handle each request from fewer examples than TF-IDF + LR.
+- **If you need to try a new set of teams before you have examples:** try Jev by describing what each team handles. Then compare its suggestions with choices made by people reviewing the requests.
+- **If requests cannot be sent outside your organisation:** choose a model that runs on your own systems. Test how accurately and quickly it works with your requests.
+
+I would also separate **what the customer needs** from **who handles it**. Store “unrecognised withdrawal”, rather than only “ATM team”. If that team changes, updating a routing table may be enough. My experiment assumed only the old queue labels were available for training.
+
+These findings come from one simulated reorganisation, 600 test requests and one small language model configuration. Real tickets can be messier; models may also have encountered this public dataset before.
+
+I started by asking whether we needed another classifier. I finished asking: **how often do our routing rules change—and how will we catch wrong decisions?**
+
+<details>
+<summary>Additional experiment details</summary>
+
+MiniLM used `all-MiniLM-L6-v2` (384-dimensional embeddings). Qwen used `Qwen3-4B-Instruct-2507`, Q4_K_M quantisation through Ollama. Jev was requested as `jev-latest`; the API reported the serving model as `jev-1.13.0`. For V2, Logistic Regression used balanced class weights to account for unequal amounts of reusable historical data and newly labelled data. Zero-shot means no task examples were supplied for V2; both models still used pretrained knowledge and the class definitions.
+
+Zero-shot V2 accuracy was 0.7767 for Qwen and 0.8900 for Jev. Their security-class results were:
+
+| Model | Precision | Recall | F1 |
+|---|---:|---:|---:|
+| Qwen3-4B | 0.4300 | 0.9149 | 0.5850 |
+| Jev | 0.9524 | 0.8511 | 0.8989 |
+
+Jev consumed 325,972 input tokens. Its Expected Calibration Error was 5.85%: this summarises gaps between reported probability and observed correctness across probability bins. Among 499 predictions with probability between 0.9 and 1.0, mean probability was 98.87% and accuracy was 93.99%. Its [confidence score is derived from the probability distribution](https://docs.typesafe.ai/confidence), so it is not independent evidence of correctness. Review thresholds need fresh validation on the intended workload.
+
+</details>
+
+You can find my experiment source code on [GitHub](https://github.com/pengbin2015/jev-experiment/tree/main).
