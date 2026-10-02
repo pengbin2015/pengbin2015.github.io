@@ -10,8 +10,6 @@ categories:
 
 **Source:** [Phillip Isola, “On the Value of Doing a PhD in the Age of AI”](https://web.mit.edu/phillipi/www/writing/PhD-in-age-of-AI.html)
 
-**Original subject tags:** Research Notes · Academic Training · AI & Research
-
 With frontier AI models improving quickly, it is reasonable to ask whether spending four or five years doing a PhD still makes sense. A research topic that looks important today may look different a few years from now, and AI is already taking over parts of research that once required substantial human effort.
 
 Phillip Isola’s article offers a useful way to think about this. One point that particularly resonates with me is that **becoming an expert still takes time**. If it once took roughly *N* hours of serious study, experimentation, failure, and reflection to understand a field deeply, AI is unlikely to reduce that to a tiny fraction of *N*. It can help us learn faster, find information, write code, analyse data, and test ideas, but we still need to build our own mental models of the subject.
