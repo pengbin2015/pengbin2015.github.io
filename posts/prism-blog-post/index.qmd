@@ -1,5 +1,5 @@
 ---
-title: "Why I Built Prism: Making AI Explanations Clearer"
+title: "Why I Built Prism Skill: Making AI Explanations Clearer"
 date: 2026-10-05
 description: "Turning clear writing, diagrams, interaction, and animation into a reusable way to explain technical ideas."
 categories: [AI, Teaching, Software Systems]
