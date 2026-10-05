@@ -7,9 +7,9 @@ categories: [AI, Teaching, Software Systems]
 
 Large language models can produce an answer, a document, or a piece of software in minutes. Understanding the output can take much longer. I may have to work through pages of fluent text to find the central idea, trace how it works, and check whether I have understood it correctly.
 
-That is the problem I built Prism to address. It is an Agent Skill that guides a large language model to explain an idea in a form that makes the mechanism easier to see. The question is: What would make this output easier to understand and check?
+That is the problem I built Prism skill to address. It is an Agent Skill that guides a large language model to explain an idea in a form that makes the mechanism easier to see. The question is: What would make this output easier to understand and check?
 
-## From Karpathy's post to Prism
+## From Karpathy's post to Prism Skill
 
 [Andrej Karpathy observed](https://x.com/karpathy/status/2105819303471976479) that we will spend more time trying to understand the outputs of language models. He suggested several ways to make an explanation easier to grasp: clear writing, diagrams, interactive HTML pages, and custom 3Blue1Brown-style videos.
 
