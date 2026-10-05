@@ -32,6 +32,4 @@ I used Prism to turn that explanation into a 3Blue1Brown-inspired animation. It 
 <!-- Replace VIDEO_ID with the ID from the uploaded YouTube video before publishing. -->
 {{< video https://youtu.be/3TTVyHvbyh8 title="How a token bucket admits and rejects requests" >}}
 
-The animation has [editable Python source](token-bucket-animation.py). Its token calculations are coded, and the rendered frames can be inspected. That checks the example and the artifact; whether a learner understands it still needs to be tested with learners.
-
-This is the habit I want Prism to encourage: before asking AI for another paragraph or visual, ask **which change, relationship, or boundary case needs to become visible**. Then choose the form that shows it.
+This is the habit I want Prism to encourage: before asking AI for another paragraph or visual, ask which change, relationship, or boundary case needs to become visible. Then choose the form that shows it.
