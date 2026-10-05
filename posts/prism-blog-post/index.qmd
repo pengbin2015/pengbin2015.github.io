@@ -1,0 +1,37 @@
+---
+title: "Why I Built Prism: Making AI Explanations Clearer"
+date: 2026-10-05
+description: "Turning clear writing, diagrams, interaction, and animation into a reusable way to explain technical ideas."
+categories: [AI, Teaching, Software Systems]
+---
+
+Large language models can produce an answer, a document, or a piece of software in minutes. Understanding the output can take much longer. I may have to work through pages of fluent text to find the central idea, trace how it works, and check whether I have understood it correctly.
+
+That is the problem I built Prism to address. It is an Agent Skill that guides a large language model to explain an idea in a form that makes the mechanism easier to see. The question is: What would make this output easier to understand and check?
+
+## From Karpathy's post to Prism
+
+[Andrej Karpathy observed](https://x.com/karpathy/status/2105819303471976479) that we will spend more time trying to understand the outputs of language models. He suggested several ways to make an explanation easier to grasp: clear writing, diagrams, interactive HTML pages, and custom 3Blue1Brown-style videos.
+
+His writing suggestion was ASD-STE100 Simplified Technical English. It is a controlled language developed to make aircraft maintenance documents easier to understand. Its rules encourage direct, consistent wording and short sentences. Prism uses these principles to improve clarity; it does not claim that every explanation formally complies with the standard. The full Issue 9 document is not bundled with the public skill. Anyone who needs exact rules or dictionary entries can [request a copy from ASD](https://www.asd-ste100.org/STE_downloads.html).
+
+The other formats serve different questions, and each has a useful tool. I recommend SVG for polished, editable diagrams that show how parts relate. [reveal.js](https://revealjs.com/) makes HTML teaching slides that can include interactive examples. For code-driven animation, I recommend [Manim Community Edition](https://www.manim.community/). [3Blue1Brown](https://www.3blue1brown.com/about/) is Grant Sanderson's channel for explaining mathematics visually; by a 3Blue1Brown-style explainer, I mean an animation that builds a visual model step by step and uses motion to reveal why something changes. When spoken narration helps, [Kokoro](https://huggingface.co/hexgrad/Kokoro-82M) is an open-weight text-to-speech option.
+
+I turned that progression into a reusable workflow: identify the point that is hard to understand, choose the form that exposes it, trace a concrete example, and check the explanation against a changed case. Prism asks for the useful form, not every form at once.
+
+Prism guides the explanation. The agent uses whatever document, slide, web, or animation tools are available to create it. I have [shared the skill on GitHub](https://github.com/pengbin2015/prism) for people using Claude Code, Codex, or GitHub Copilot.
+
+## A small test: the token bucket
+
+A token bucket is a computer science algorithm for controlling how quickly requests or tasks enter a system. It is used in [API gateways](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-throttling.html) and [task queues](https://docs.cloud.google.com/tasks/docs/configuring-queues). Imagine that each token gives permission for one request. The bucket holds at most a set number of tokens. Tokens return at a fixed rate. A request takes one token if available; otherwise, the system rejects or delays it.
+
+The interesting part is the difference between capacity and refill rate. In this example, the bucket starts with 100 tokens and gains 100 tokens per minute. It can admit 100 requests immediately, then reject the 101st. After 30 seconds with no requests, 50 tokens have returned, so another 50 requests can pass. That is 150 admitted requests in 30 seconds. A refill rate of 100 per minute does not mean a strict maximum of 100 requests in every rolling 60-second period.
+
+I used Prism to turn that explanation into a 3Blue1Brown-inspired animation. It shows the token balance changing, pauses at the rejected request, and then shows how a 30-second refill makes the second burst possible.
+
+<!-- Replace VIDEO_ID with the ID from the uploaded YouTube video before publishing. -->
+{{< video https://youtu.be/3TTVyHvbyh8 title="How a token bucket admits and rejects requests" >}}
+
+The animation has [editable Python source](token-bucket-animation.py). Its token calculations are coded, and the rendered frames can be inspected. That checks the example and the artifact; whether a learner understands it still needs to be tested with learners.
+
+This is the habit I want Prism to encourage: before asking AI for another paragraph or visual, ask **which change, relationship, or boundary case needs to become visible**. Then choose the form that shows it.
