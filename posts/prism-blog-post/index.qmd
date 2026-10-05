@@ -19,7 +19,7 @@ The other formats serve different questions, and each has a useful tool. I recom
 
 I turned that progression into a reusable workflow: identify the point that is hard to understand, choose the form that exposes it, trace a concrete example, and check the explanation against a changed case. Prism asks for the useful form, not every form at once.
 
-Prism guides the explanation. The agent uses whatever document, slide, web, or animation tools are available to create it. I have [shared the skill on GitHub](https://github.com/pengbin2015/prism) for people using Claude Code, Codex, or GitHub Copilot.
+Prism guides the explanation. The agent uses whatever document, slide, web, or animation tools are available to create it.
 
 ## A small test: the token bucket
 
@@ -33,3 +33,5 @@ I used Prism to turn that explanation into a 3Blue1Brown-inspired animation. It 
 {{< video https://youtu.be/3TTVyHvbyh8 title="How a token bucket admits and rejects requests" >}}
 
 This is the habit I want Prism to encourage: before asking AI for another paragraph or visual, ask which change, relationship, or boundary case needs to become visible. Then choose the form that shows it.
+
+If you want to try the skill or adapt it for your own workflow, I have shared it on [GitHub](https://github.com/pengbin2015/prism).
