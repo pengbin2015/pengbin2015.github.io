@@ -20,19 +20,15 @@ Some commenters appreciated the app and did not seem to care whether AI had been
 
 What I found interesting is that the criticism was not simply “AI wrote this, therefore it is bad.” Some commenters were perfectly happy to use an AI-built application if it was useful.
 
-The negative reactions seemed to be directed more at what people associated with low-effort AI-generated software: generic design choices, unnecessary interface elements, limited differentiation, or features that did not feel fully thought through. In other words, the problem was less about how the code was produced and more about whether enough judgment and refinement had been applied before the product was released.
+The negative reactions seemed to be directed more at what people associated with low-effort AI-generated software: generic design choices, unnecessary interface elements, limited differentiation, or features that did not feel fully thought through. The problem was less about how the code was produced and more about whether enough judgment and refinement had been applied before the product was released.
 
-This is where vibe coding creates an interesting tension. AI can dramatically reduce the effort required to turn an idea into working software. But reducing implementation effort does not reduce the need for product judgment, design judgment, or engineering judgment. If anything, it makes those forms of judgment more visible.
+This is where vibe coding creates an interesting tension. AI can dramatically reduce the effort required to turn an idea into working software. That is mostly a good thing. More people can experiment, build prototypes, and turn ideas into something others can actually use.
 
-AI-generated software is not necessarily low-quality software. But when implementation becomes dramatically cheaper and faster, it also becomes easier to publish something before enough thought has gone into it.
+But reducing implementation effort does not reduce the need for product, design, or engineering judgment. It actually makes these forms of judgment more important.
 
 A working application is only one part of a good product. Someone still needs to ask: Does this solve a real problem? Is the interface appropriate? Are these features actually necessary? Has it been tested properly? Is it secure? Can users trust the data and the application?
 
-In traditional software development, implementation cost created a natural barrier. Building even a relatively small application required enough time and effort that teams usually had to make choices about what was worth building. Vibe coding lowers that barrier considerably.
-
-That is mostly a good thing. More people can turn ideas into working software.
-
-But it also changes where the difficult part of software development sits.
+In traditional software development, implementation cost created a natural barrier. Building even a relatively small application took enough time and effort that teams had to think carefully about what was worth building. Vibe coding lowers that barrier considerably.
 
 Writing the code may become easier. Deciding what deserves to be built, and engineering it until it deserves to be used, does not.
 
@@ -40,7 +36,7 @@ This discussion also made me think about a distinction I have been trying to mak
 
 When I teach AI-Augmented SDLC, I am not really teaching students how to get an AI coding agent to produce more code. I am interested in what happens when AI becomes part of a software engineering process: requirements still need to express intent, architectural decisions still need reasoning, generated code still needs testing and review, and someone still needs to take responsibility for the resulting system.
 
-The same distinction becomes even more visible in my Deploying Safe and Secure AI Agents course. Once an AI system can use tools, access data, or take actions, getting the agent to *work* is only the beginning. We also have to decide what it should be allowed to do, validate its actions, restrict permissions, test failure cases, and observe its behaviour. A prompt cannot carry all of that responsibility; the surrounding software has to enforce it.
+The same distinction becomes even more visible in my Deploying Safe and Secure AI Agents course. Once an AI system can use tools, access data, or take actions, getting the agent to work is only the beginning. We also have to decide what it should be allowed to do, validate its actions, restrict permissions, test failure cases, and observe its behaviour. A prompt cannot carry all of that responsibility; the surrounding software has to enforce it.
 
 Vibe coding can be extremely useful for experimentation and prototyping. The problem comes when “it works” is treated as the end of software development rather than the beginning of engineering it properly.
 
