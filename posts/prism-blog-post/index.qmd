@@ -41,26 +41,4 @@ I used Prism to turn that explanation into a 3Blue1Brown-inspired animation. It 
 
 {{< video https://youtu.be/3TTVyHvbyh8 title="How a token bucket admits and rejects requests" >}}
 
-## Two more demonstrations
-
-For overfitting, I used interactive HTML slides. The learner can change the polynomial degree, inspect the fitted curve, and compare training and validation errors. A curve that closely follows the training points may perform poorly on unseen data. Changing the degree lets the learner explore that tension; the slides introduce the data split and model selection in stages.
-
-The [HTML source is on GitHub](https://github.com/pengbin2015/prism/blob/main/demo/interactive-slides/index.html). To try it, use GitHub’s **Download raw file** button, save it as `index.html`, and open it in a browser. The experiment runs within that file.
-
-For gradient descent, I used a narrated animation. It shows tangent slopes on a loss curve, turns a slope into a parameter update, and repeats the update to show a path toward lower loss. Comparing learning rates from the same starting point makes the step-size decision visible: a downhill direction alone does not guarantee a useful step. The sequence connects the update rule to the motion it produces.
-
-This example uses Manim Community Edition for the animation and Kokoro for narration. The [final narrated video](https://github.com/pengbin2015/prism/blob/main/demo/animation/gradient-descent-narrated.mp4), [editable Manim source](https://github.com/pengbin2015/prism/blob/main/demo/animation/gradient_descent.py), and [narration script](https://github.com/pengbin2015/prism/blob/main/demo/animation/narration.json) are available in the repository.
-
-These demonstrations show what the agent can produce and how different forms can expose a mechanism. They do not establish that a format produces better learning outcomes.
-
-## From explanation to a finished artifact
-
-Prism guides the explanation; the AI agent carries out the production work. With the necessary tools and permissions, the agent can inspect the environment, set up dependencies, generate visuals and narration, assemble the result, verify calculations and output quality, and rebuild it from saved source. If a tool is unavailable or an action needs approval, the agent should explain the limitation or request the required permission. The [repository README](https://github.com/pengbin2015/prism#create-narrated-animations) keeps the detailed setup and rebuild commands for this workflow.
-
-## Trying Prism
-
-The [Prism repository](https://github.com/pengbin2015/prism) includes [installation instructions](https://github.com/pengbin2015/prism#install) and examples. After installing it for your agent, try a prompt that leaves the medium open:
-
-> Use Prism to explain overfitting to a learner who knows basic regression. Help them understand why lower training error can come with worse predictions on new data. Choose the clearest format for that question.
-
-This is the habit I want Prism to encourage: before asking AI for another paragraph or visual, ask which change, relationship, or boundary case needs to become visible. The learner’s question should drive the medium. You can still request a specific format when you know what you need.
+I have made the [Prism repository](https://github.com/pengbin2015/prism) publicly available to share it with anyone interested.
