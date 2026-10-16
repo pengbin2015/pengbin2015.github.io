@@ -1,13 +1,13 @@
 ---
 title: "Why I Built Prism Skill: Making AI Explanations Clearer"
 date: 2026-10-05
-description: "Turning clear writing, diagrams, interaction, and animation into a reusable way to explain technical ideas."
+description: "How Prism identifies what makes an idea difficult, chooses an explanatory form, and guides an AI agent to produce it."
 categories: [AI, Teaching, Software Systems]
 ---
 
 Large language models can produce an answer, a document, or a piece of software in minutes. Understanding the output can take much longer. I may have to work through pages of fluent text to find the central idea, trace how it works, and check whether I have understood it correctly.
 
-That is the problem I built Prism skill to address. It is an Agent Skill that guides a large language model to explain an idea in a form that makes the mechanism easier to see. The question is: What would make this output easier to understand and check?
+That is the problem I built Prism skill to address. It is an Agent Skill that identifies what makes a concept difficult, chooses an effective explanatory form, and uses the agent’s tools to produce it. You can give Prism a concept, a question, and an audience without choosing an output format. The question is: What would make this output easier to understand and check?
 
 ## From Karpathy's post to Prism Skill
 
@@ -15,11 +15,21 @@ That is the problem I built Prism skill to address. It is an Agent Skill that gu
 
 His writing suggestion was ASD-STE100 Simplified Technical English. It is a controlled language developed to make aircraft maintenance documents easier to understand. Its rules encourage direct, consistent wording and short sentences. Prism uses these principles to improve clarity; it does not claim that every explanation formally complies with the standard. The full Issue 9 document is not bundled with the public skill. Anyone who needs exact rules or dictionary entries can [request a copy from ASD](https://www.asd-ste100.org/STE_downloads.html).
 
-The other formats serve different questions, and each has a useful tool. I recommend SVG for polished, editable diagrams that show how parts relate. [reveal.js](https://revealjs.com/) makes HTML teaching slides that can include interactive examples. For code-driven animation, I recommend [Manim Community Edition](https://www.manim.community/). [3Blue1Brown](https://www.3blue1brown.com/about/) is Grant Sanderson's channel for explaining mathematics visually; by a 3Blue1Brown-style explainer, I mean an animation that builds a visual model step by step and uses motion to reveal why something changes. When spoken narration helps, [Kokoro](https://huggingface.co/hexgrad/Kokoro-82M) is an open-weight text-to-speech option.
+## Let the difficulty guide the format
 
-I turned that progression into a reusable workflow: identify the point that is hard to understand, choose the form that exposes it, trace a concrete example, and check the explanation against a changed case. Prism asks for the useful form, not every form at once.
+The useful form depends on where the learner gets stuck. A definition may need a short explanation and one example. A system with several interacting parts may need a diagram. If the question is “What happens when I change this?”, the learner may need something they can manipulate.
 
-Prism guides the explanation. The agent uses whatever document, slide, web, or animation tools are available to create it.
+| Learner’s difficulty | Useful treatment |
+| --- | --- |
+| Understanding a definition, argument, or short example | Text |
+| Seeing structure or relationships | A diagram with supporting text |
+| Exploring how inputs affect outcomes | Interactive HTML |
+| Following a transformation or process through time | Animation |
+| Working through an explanation in stages | Slides containing suitable visuals or interaction |
+
+These are choices based on the learning problem. The same topic can call for different treatments. HTML can contain animation, and slides can contain diagrams or interactive experiments. A familiar tool should not decide the explanation before the question is clear.
+
+I turned this idea into a reusable workflow. Prism first considers what the audience already knows and what they need to understand. It looks for the missing relationship, hidden state, or confusing step: is the learner struggling with what something means, how parts connect, or why a change produces a result? It then chooses the simplest form that exposes that difficulty, traces a concrete example, and checks the explanation against a changed case. Prism asks for the useful form, not every form at once.
 
 ## A small test: the token bucket
 
@@ -27,11 +37,30 @@ A token bucket is a computer science algorithm for controlling how quickly reque
 
 The interesting part is the difference between capacity and refill rate. In this example, the bucket starts with 100 tokens and gains 100 tokens per minute. It can admit 100 requests immediately, then reject the 101st. After 30 seconds with no requests, 50 tokens have returned, so another 50 requests can pass. That is 150 admitted requests in 30 seconds. A refill rate of 100 per minute does not mean a strict maximum of 100 requests in every rolling 60-second period.
 
-I used Prism to turn that explanation into a 3Blue1Brown-inspired animation. It shows the token balance changing, pauses at the rejected request, and then shows how a 30-second refill makes the second burst possible.
+I used Prism to turn that explanation into a 3Blue1Brown-inspired animation. It shows the token balance changing, pauses at the rejected request, and then shows how a 30-second refill makes the second burst possible. Watching the balance fall and recover connects elapsed time to the requests the system can admit. It makes the distinction between stored capacity and refill rate visible.
 
-<!-- Replace VIDEO_ID with the ID from the uploaded YouTube video before publishing. -->
 {{< video https://youtu.be/3TTVyHvbyh8 title="How a token bucket admits and rejects requests" >}}
 
-This is the habit I want Prism to encourage: before asking AI for another paragraph or visual, ask which change, relationship, or boundary case needs to become visible. Then choose the form that shows it.
+## Two more demonstrations
 
-If you want to try the skill or adapt it for your own workflow, I have shared it on [GitHub](https://github.com/pengbin2015/prism).
+For overfitting, I used interactive HTML slides. The learner can change the polynomial degree, inspect the fitted curve, and compare training and validation errors. A curve that closely follows the training points may perform poorly on unseen data. Changing the degree lets the learner explore that tension; the slides introduce the data split and model selection in stages.
+
+The [HTML source is on GitHub](https://github.com/pengbin2015/prism/blob/main/demo/interactive-slides/index.html). To try it, use GitHub’s **Download raw file** button, save it as `index.html`, and open it in a browser. The experiment runs within that file.
+
+For gradient descent, I used a narrated animation. It shows tangent slopes on a loss curve, turns a slope into a parameter update, and repeats the update to show a path toward lower loss. Comparing learning rates from the same starting point makes the step-size decision visible: a downhill direction alone does not guarantee a useful step. The sequence connects the update rule to the motion it produces.
+
+This example uses Manim Community Edition for the animation and Kokoro for narration. The [final narrated video](https://github.com/pengbin2015/prism/blob/main/demo/animation/gradient-descent-narrated.mp4), [editable Manim source](https://github.com/pengbin2015/prism/blob/main/demo/animation/gradient_descent.py), and [narration script](https://github.com/pengbin2015/prism/blob/main/demo/animation/narration.json) are available in the repository.
+
+These demonstrations show what the agent can produce and how different forms can expose a mechanism. They do not establish that a format produces better learning outcomes.
+
+## From explanation to a finished artifact
+
+Prism guides the explanation; the AI agent carries out the production work. With the necessary tools and permissions, the agent can inspect the environment, set up dependencies, generate visuals and narration, assemble the result, verify calculations and output quality, and rebuild it from saved source. If a tool is unavailable or an action needs approval, the agent should explain the limitation or request the required permission. The [repository README](https://github.com/pengbin2015/prism#create-narrated-animations) keeps the detailed setup and rebuild commands for this workflow.
+
+## Trying Prism
+
+The [Prism repository](https://github.com/pengbin2015/prism) includes [installation instructions](https://github.com/pengbin2015/prism#install) and examples. After installing it for your agent, try a prompt that leaves the medium open:
+
+> Use Prism to explain overfitting to a learner who knows basic regression. Help them understand why lower training error can come with worse predictions on new data. Choose the clearest format for that question.
+
+This is the habit I want Prism to encourage: before asking AI for another paragraph or visual, ask which change, relationship, or boundary case needs to become visible. The learner’s question should drive the medium. You can still request a specific format when you know what you need.
