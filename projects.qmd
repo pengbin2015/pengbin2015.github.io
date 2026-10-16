@@ -2,3 +2,15 @@
 title: "Projects"
 description: "Selected engineering, research, and open-source projects."
 ---
+
+## Prism
+
+Prism is an Agent Skill that helps AI agents explain technical ideas through clear writing, diagrams, interactive HTML, or animation, choosing the form that best addresses the learner’s question.
+
+[GitHub repository](https://github.com/pengbin2015/prism) · [Why I built Prism](posts/prism-blog-post/index.qmd)
+
+## Jev Experiment
+
+Jev Experiment compares Jev, a small language model, and trained classifiers for routing banking customer requests when business rules change, measuring accuracy, labelling needs, latency, and cost.
+
+[GitHub repository](https://github.com/pengbin2015/jev-experiment) · [Experiment write-up](posts/jev-vs-ml-when-routing-rules-change/index.qmd)
