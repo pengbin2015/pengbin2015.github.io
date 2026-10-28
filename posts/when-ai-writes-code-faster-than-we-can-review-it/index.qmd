@@ -76,7 +76,7 @@ That does not mean Anthropic simply trusts an AI reviewer. Its process combines 
 
 The diagram below shows the main steps from implementing a change to releasing it. The important decision is whether a pull request needs human approval. Anthropic bases that requirement on risk, author trust, and rules for sensitive parts of the codebase. This is a simplified account of Anthropic's internal engineering workflow, not a description of what its hosted Code Review product does by itself.
 
-```mermaid
+```{mermaid}
 flowchart TD
     A["Engineer or AI coding agent implements a change"]
     B["Run tests, build, lint, and a fresh AI review of the code changes"]
