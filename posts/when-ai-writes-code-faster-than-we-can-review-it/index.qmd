@@ -1,0 +1,213 @@
+---
+title: "When AI Writes Code Faster Than We Can Review It"
+description: "How GitHub and Anthropic approach AI code review, human approval, automated checks, and the risks of faster code generation."
+date: 2026-10-28
+author: "Peng Bin"
+categories:
+  - AI Engineering
+  - Software Engineering
+  - AI Agents
+execute:
+  enabled: false
+---
+
+# When AI Writes Code Faster Than We Can Review It
+
+A coding agent can now write code, run tests, and open a pull request in minutes. Meanwhile, a developer may still be reviewing the previous change. Coding has become faster, but reviewing code still takes time. As agents produce more changes, how can we make sure the software remains correct, secure, and maintainable?
+
+Traditionally, developers reviewed code written by teammates. They could discuss the implementation, ask questions, and request changes before merging. Today, a coding agent can modify several files, run checks, and respond to review comments with little human involvement. The developer directing the agent remains responsible for the result, even when they have not personally written every line.
+
+The volume of activity is growing. GitHub's [2025 Octoverse report](https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/) states that Copilot coding agent created more than one million pull requests between May and September 2025. [Anthropic reported in October 2026](https://claude.dev/blog/solving-code-review-at-anthropic/) that merged pull requests in the Claude Code codebase more than doubled from June to September that year.
+
+These figures measure different things. They do not prove that software delivery has become faster or that the changes are better. But they help explain why teams need to reconsider how they review code.
+
+## Who should review code written by AI agents?
+
+Code still needs to meet the requirements, handle errors and security risks, and be easy for other developers to understand and maintain. The question is how to check those qualities when coding agents can produce changes faster than developers can inspect them.
+
+Suppose a coding agent implements a feature in an online shopping application that lets customers download their invoices. The feature works, and its automated tests pass. But what if a customer changes the invoice ID in the download request? Could they download another customer's invoice? The code may work under normal conditions while still containing a serious security flaw.
+
+That leaves two tempting extremes:
+
+| Approach | What happens | The difficulty |
+|---|---|---|
+| Human reviews every change | A developer examines every proposed code change in detail before approving it for merging. | As agents generate more code, developers may struggle to keep up with the number and size of pull requests. |
+| Fully autonomous AI code review | AI agents review and approve changes without requiring human approval. | AI reviewers may miss bugs, security vulnerabilities, or design problems, allowing risky changes to reach production. |
+
+Neither extreme gives us an easy answer. Reviewing everything manually can slow delivery. Removing human approval entirely may speed up merging, but it also changes how a team manages risk.
+
+A more practical approach is to vary human involvement according to the change. A modification to invoice access permissions probably deserves more scrutiny than a wording correction. But this raises a harder question: how much scrutiny is enough?
+
+There is no standard amount of human review that works for every repository or every change. The answer depends on what could go wrong, how serious the consequences would be, and what the automated checks can actually establish. Before deciding where to involve people, we need to understand why the existing review process is under pressure.
+
+## The bottleneck is our attention
+
+When coding agents produce changes faster than people can review them, pull requests can accumulate. A team that requires detailed manual inspection of every change may have to accept longer review queues or spend less time on each review.
+
+Anyone who has reviewed a large, unfamiliar change knows that much of the work goes into understanding what was modified and why. A developer might spend half an hour tracing the implementation before getting to the important question about security or design. Having a human approval does not necessarily mean the reviewer understood every part of the code.
+
+Skipping that work has costs too. A bug missed during review can become an incident after release. A design problem can become technical debt when other developers have to work around it later. Examples include duplicated business rules or modules that are so tightly coupled that a small change breaks something unrelated.
+
+AI review is not free from these problems. A reviewer can report false alarms, prompting an agent to make unnecessary changes. Those changes may trigger another review, followed by another round of fixes. Anthropic described one pull request that went through more than fifty rounds of review and fixes overnight before its author intervened.
+
+So I would not measure success simply by how few people approve a pull request or how quickly it gets merged. We need to consider the total human effort involved in reviewing changes and correcting problems later. Reducing review time is not an improvement if the team spends more time dealing with failures in production.
+
+This is where GitHub and Anthropic offer two useful perspectives on human involvement.
+
+## GitHub's approach: AI helps developers review
+
+In a [July 2025 article](https://github.blog/ai-and-ml/generative-ai/code-review-in-the-age-of-ai-why-developers-will-always-own-the-merge-button/), GitHub described a workflow in which AI assists developers but people remain responsible for the merge decision.
+
+The developer can ask AI to review a change before submitting it. Automated tests and other checks help find routine problems. When a teammate reviews the pull request, they can spend more time considering the intended behaviour, architecture, tradeoffs, and whether the feature is appropriate for the application.
+
+GitHub drew on developer interviews and reported that reviewers scrutinised AI generated changes much as they did code written by people. It also described self review with AI as a way to fix obvious issues before involving a teammate. This was a description of an approach, not evidence that every development team followed it.
+
+The important point is that AI reduces some of the work required before human review. It does not replace the developer's responsibility to understand and maintain the change.
+
+This approach is relatively straightforward to adopt. A team can keep its existing approval rules while adding AI review before a person reads the pull request. However, as the number of changes continues to grow, human approval can still become a bottleneck.
+
+## Anthropic's approach: human review depends on risk
+
+Anthropic's [October 2026 engineering account](https://claude.dev/blog/solving-code-review-at-anthropic/) takes the idea further. Its Claude Code team describes an internal process in which automated review happens throughout development, rather than only after a pull request is opened.
+
+Anthropic's stated goal is for most pull requests in its Claude Code repositories to merge with no more than one human involved, possibly the author, without increasing reversions or incidents. In some cases, qualifying changes can merge without a separate human approval. More consequential changes still require one or two people.
+
+That does not mean Anthropic simply trusts an AI reviewer. Its process combines several checks, and the requirements change according to the risk of the code being modified.
+
+The diagram below shows the main steps from implementing a change to releasing it. The important decision is whether a pull request needs human approval. Anthropic bases that requirement on risk, author trust, and rules for sensitive parts of the codebase. This is a simplified account of Anthropic's internal engineering workflow, not a description of what its hosted Code Review product does by itself.
+
+```mermaid
+flowchart TD
+    A["Engineer or AI coding agent implements a change"]
+    B["Run tests, build, lint, and a fresh AI review of the code changes"]
+    C["Open a pull request"]
+    D["Run required CI checks, multi-agent bug review, and security review"]
+    E["Resolve failures and review findings"]
+    F{"Human approval required?"}
+    G["Obtain 1 or 2 human approvals"]
+    H["Merge queue checks against latest code"]
+    I["Merge the change"]
+    J["Release internally, then gradually to users"]
+    K["Monitor and fix or roll back if needed"]
+
+    A --> B --> C --> D --> E --> F
+    F -- "Yes" --> G --> H
+    F -- "No" --> H
+    H --> I --> J --> K
+```
+
+*Figure: A simplified view of Anthropic's internal code review and release workflow. A failed check or an unresolved finding must be addressed before the change can merge. The diagram omits retry loops to keep the main process readable.*
+
+### 1. Verify the code before opening a pull request
+
+After an engineer or coding agent implements a change, the first step is to check the work. Anthropic describes running tests, a build, and a linter before the pull request is opened. A linter checks the source code for common problems, such as unused variables or violations of coding rules.
+
+A second AI agent then reviews the code changes with fresh context. Unlike the agent that implemented the change, it does not start from the same conversation or rely on the author's explanation. The purpose is to catch mistakes early, while the author can still correct them before submitting the pull request.
+
+This review is useful, but it does not replace the more structured review that follows.
+
+### 2. Run CI checks and AI reviews on the pull request
+
+Once the pull request is opened, several checks examine the submitted code. Required continuous integration (CI) checks run tests, type checks, builds, and other automated verification. The results need to apply to the latest version of the proposed change. A test result from before the agent made another edit is no longer sufficient.
+
+Anthropic also describes a multi-agent bug review. Several AI agents search for potential defects, while other agents evaluate the findings. The goal is to report specific, useful problems rather than produce large numbers of speculative comments.
+
+The security review is a separate pass. It looks for ways the code could be misused, not just whether the feature works under normal conditions. For the invoice download example, a reviewer should ask whether a signed-in customer could request another customer's invoice by changing its ID.
+
+Failures and findings must be resolved before merging. The author may fix the code or explain why a reported finding is a false alarm. If the code changes, the affected checks need to run again.
+
+The public [hosted Claude Code Review product](https://code.claude.com/docs/en/code-review) reviews code but does not itself build or execute tests. Anthropic's internal workflow combines the reviewer with other checks and repository rules.
+
+### 3. Decide how much human approval is required
+
+This is the main difference from a process that asks a person to approve every pull request. Anthropic varies the approval requirement according to risk, whether the author is trusted, and whether the change affects protected code paths.
+
+| Approval requirement | How it works |
+|---|---|
+| No additional human approval | Certain qualifying low-risk changes can proceed after the required checks pass. |
+| One human approval | Changes that need a person to review the remaining risk must receive approval before merging. |
+| Two human approvals | Higher-risk changes and selected sensitive areas require additional scrutiny. |
+
+The number of approvals is not determined by the AI reviewer alone, and an AI agent cannot count as a required human approver. These are Anthropic's reported internal rules, not a standard that every software team should adopt.
+
+For example, changing invoice access permissions is more consequential than correcting wording in documentation. But deciding whether one approval is sufficient still requires judgment about the system, possible harm, and how reliable its automated checks have proved to be.
+
+Anthropic also uses a stopping rule for repeated review rounds. After three rounds, the author is asked to reconsider the approach instead of continuing an unproductive cycle of edits and reviews. This means reassessing or escalating the problem, not accepting unresolved defects.
+
+### 4. Verify the change before merging
+
+Even if a pull request passes all its checks, another change might have been merged into the shared codebase in the meantime. Two changes can work separately and fail when combined.
+
+Anthropic uses a merge queue to check a proposed change against the latest shared code. If the integration checks fail, the problem must be addressed before merging. Human approval, where required, does not replace this final verification.
+
+### 5. Release internally before wider rollout
+
+After merging, Anthropic typically makes new behaviour available internally before exposing it to everyone. It may use a feature flag, which lets the team enable or disable behaviour without necessarily deploying a new version.
+
+Internal use gives employees a chance to encounter problems that were not covered by tests or code reviews.
+
+### 6. Release gradually to users
+
+Instead of making every change available to all users at once, Anthropic describes releasing it through channels, with the latest channel receiving changes before the stable channel. This gives the team an opportunity to detect failures before they affect more users.
+
+Gradual release reduces the potential impact of a problem, but it does not guarantee that a serious issue will be caught.
+
+### 7. Monitor and recover when something goes wrong
+
+The engineer responsible for the change, together with on-call staff, monitors what happens after release. If a problem appears, the team may disable the feature, fix the code, or roll back the change.
+
+In the invoice example, disabling downloads could prevent further exposure, but it cannot undo an invoice disclosure that has already occurred. The team should also determine why earlier tests or reviews missed the permission check.
+
+Anthropic's workflow shows that human involvement is not limited to reading and approving code. People also define which changes need approval, assess unresolved risks, and respond when a release causes problems. The challenge for other teams is to decide which parts of this process they can automate reliably and which decisions still need a person.
+
+## What would this look like for the invoice feature?
+
+Consider the invoice download feature again. This is an illustrative example, not a test I ran with Claude Code Review.
+
+A risky implementation might check that a customer is signed in and then return the requested invoice without checking who owns it:
+
+```python
+def download(customer, invoice_id, invoices):
+    if customer is None:
+        raise PermissionError("Sign in required")
+    return invoices[invoice_id]["body"]
+```
+
+A test in which Alice downloads her own invoice would pass. But Alice might also be able to change the invoice ID and download Bob's invoice.
+
+I would want several things established before approving this change. The automated tests should confirm that Alice can download her own invoice but cannot download Bob's. An AI bug or security reviewer should inspect how invoice ownership is checked on the server. After the agent fixes the problem, the tests must run on the updated code. Because this change affects access to customer documents, a developer familiar with the application's security requirements should review the rule and the evidence.
+
+Even if all these checks pass, the team still needs to monitor the release and know how to respond if a problem appears.
+
+The point is to ask more than whether a test passed. Did the test cover the important rule? Was the security concern addressed? Do the results apply to the version being released? Those questions are more useful than a general assurance from an AI reviewer.
+
+## Can teams try this without Anthropic's full setup?
+
+Anthropic's internal engineering process and its hosted review service are different things. Teams can adopt many of the practices without using the same product or rebuilding every part of Anthropic's infrastructure.
+
+The [hosted Claude Code Review service](https://code.claude.com/docs/en/code-review) is available for Team and Enterprise plans and works with GitHub repositories. Administrators can configure review settings and guidance, including `REVIEW.md` and `CLAUDE.md`. The service runs on Anthropic's infrastructure, and teams do not select the model used for hosted reviews. The separate [local `/code-review` workflow](https://code.claude.com/docs/en/code-review-local) is available on any plan.
+
+Cost also matters. [Hosted reviews use separately billed usage credits](https://code.claude.com/docs/en/code-review-costs). The amount depends on the review depth and complexity of the change. Running reviews after every push can increase the bill, especially when an agent repeatedly revises the same pull request. A sensible trial should track the cost of all review rounds, not only the first one. If a review is skipped because of a spending limit, the team should not interpret the missing comments as evidence that the code is clean.
+
+Teams concerned about the cost of hosted reviews may also consider open source tools, especially if they want more control over model choice, execution, and review workflows. These tools can offer more flexibility in managing costs, but they are not necessarily cheaper once model usage, computing resources, and maintenance are included:
+
+| Option | What it offers | What a team must manage |
+|---|---|---|
+| [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) | An MIT licensed harness with an [experimental GitHub review integration](https://deepseek-harness.github.io/deepseek-harness/en/guide/github-review) | Webhook handling, review configuration, execution, and operational reliability |
+| [Qwen Code](https://github.com/QwenLM/qwen-code) and [Qwen Code Action](https://github.com/QwenLM/qwen-code-action) | Apache 2.0 projects with configurable instructions and [pull request review examples](https://github.com/QwenLM/qwen-code-action/tree/main/examples/workflows/pr-review) | Model credentials, runners, prompts, repository permissions, and approval rules |
+
+These are alternatives for building a review workflow, not proven equivalents to Anthropic's hosted reviewer. I have not run a comparative evaluation of their review quality. Open source tools also have operating and model costs, and self hosting the workflow does not automatically keep code private if the model processes requests elsewhere.
+
+## Where Does This Leave Human Code Review?
+
+GitHub and Anthropic offer two different approaches to the same challenge. GitHub emphasises using AI to support human reviewers, while Anthropic demonstrates how automated checks and AI reviews can reduce the need for human approval on certain changes.
+
+Neither approach provides a universal answer to how much human review is enough. That depends on the risks associated with a code change, the reliability of automated checks, and the consequences if something goes wrong.
+
+There is also a longer term concern. Code review is not just about finding bugs. It helps developers understand how software works and why certain design decisions were made. If AI agents write and review most of the code, teams may gradually lose the knowledge they need to maintain, troubleshoot, and extend their systems.
+
+As AI agents become more capable, I think developers will spend less time inspecting every line of code and more time deciding what needs to be checked, what evidence is sufficient, and when human judgment is necessary.
+
+The challenge is not simply to review more code faster. It is to maintain software quality, engineering knowledge, and accountability while making good use of AI automation.
+
+*Sources checked October 28, 2026. The figures and workflow details attributed to GitHub and Anthropic come from their published accounts. The invoice example is illustrative. This article does not present an independent benchmark of AI review tools or a measured improvement in software delivery.*
