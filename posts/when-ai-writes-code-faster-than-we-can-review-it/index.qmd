@@ -96,7 +96,7 @@ flowchart TD
     H --> I --> J --> K
 ```
 
-*Figure: A simplified view of Anthropic's internal code review and release workflow. A failed check or an unresolved finding must be addressed before the change can merge. The diagram omits retry loops to keep the main process readable.*
+*Anthropic’s code review workflow*
 
 ### 1. Verify the code before opening a pull request
 
