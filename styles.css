@@ -57,3 +57,19 @@
     line-height: 1.7;
   }
 }
+/* Keep this figure readable in both site themes. */
+#anthropic-review-workflow,
+#anthropic-review-workflow svg {
+  --mermaid-font-family: Arial, sans-serif;
+  --mermaid-font-weight: 400;
+  --mermaid-label-fg-color: #172b40;
+  --mermaid-label-bg-color: #ffffff;
+  --mermaid-edge-color: #455568;
+  --mermaid-fg-color: #172b40;
+  --mermaid-fg-color--lightest: #f4f6f8;
+  --mermaid-fg-color--lighter: #a5b3c2;
+}
+
+#anthropic-review-workflow .cluster-label span {
+  font-weight: 600;
+}

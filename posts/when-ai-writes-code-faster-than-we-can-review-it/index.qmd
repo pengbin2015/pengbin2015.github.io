@@ -76,11 +76,14 @@ That does not mean Anthropic simply trusts an AI agent reviewer. Its process com
 
 Figure 1 groups Anthropic's workflow into three parts: automated review and verification, human approval based on risk, and release safeguards. Automated checks look for different kinds of problems before merging. Human approval requirements depend on the change's risk, author trust, and rules for sensitive code. Staged release, monitoring, and rollback help contain defects that escape those checks. Together, these layers reduce the need for manual review while providing several opportunities to catch or recover from mistakes. The figure summarises Anthropic's internal workflow; individual checks can run in parallel.
 
+::: {#anthropic-review-workflow}
+
 ```{mermaid}
+%%{init: {"flowchart": {"subGraphTitleMargin": {"top": 10, "bottom": 18}}}}%%
 flowchart TD
     A["Proposed code change"]
 
-    subgraph automated["AUTOMATED LAYERS — every change"]
+    subgraph automated["AUTOMATED CHECKS"]
         B["Before the pull request<br/>Tests and fresh-context AI review<br/>Catch mistakes during development"]
         C["AI bug and security reviews<br/>Find defects and ways the code could be misused"]
         D["Required CI checks<br/>Test behaviour, types, builds, and coding rules"]
@@ -88,7 +91,7 @@ flowchart TD
         B --> C --> D --> E
     end
 
-    subgraph human["HUMAN ATTENTION — approval follows risk"]
+    subgraph human["HUMAN APPROVAL"]
         F{"Risk, author trust,<br/>and protected code paths"}
         G["Qualifying low-risk change<br/>No additional human approval"]
         H["Approval required<br/>One or two human approvals<br/>Assess risk and review the evidence"]
@@ -96,7 +99,7 @@ flowchart TD
         F -- "Human approval needed" --> H
     end
 
-    subgraph recovery["RELEASE AND RECOVERY — defects can still get through"]
+    subgraph recovery["RELEASE AND RECOVERY"]
         I["Merge queue<br/>Recheck against the latest shared code"]
         J["Internal use, then gradual release<br/>Limit exposure and watch for regressions"]
         K["Author and on-call monitor the release<br/>Disable, fix, or roll back when needed"]
@@ -111,10 +114,16 @@ flowchart TD
     classDef automatedNode fill:#edf5ff,stroke:#35618d,color:#172b40
     classDef humanNode fill:#fff3db,stroke:#9a681b,color:#49310d
     classDef recoveryNode fill:#eaf5ef,stroke:#397252,color:#193d2a
-    class B,C,D,E automatedNode
+    class A,B,C,D,E automatedNode
     class F,G,H humanNode
     class I,J,K recoveryNode
+
+    style automated fill:#f4f8fd,stroke:#9eb5cd,color:#172b40
+    style human fill:#fff9ed,stroke:#c8ad7e,color:#49310d
+    style recovery fill:#f0f8f3,stroke:#9bbba8,color:#193d2a
 ```
+
+:::
 
 *Figure 1. Anthropic's approach: automated review, human approval based on risk, and safeguards after release.*
 
