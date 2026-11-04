@@ -132,7 +132,7 @@ The rest of the series explores how teams can address these requirements. We'll 
 
 ![Eight-part Team Agents series roadmap organised into four groups, with every post numbered 01 through 08.](images/series-roadmap.svg){#fig-series-roadmap width="100%" fig-alt="Four groups: Foundations, Posts 01–02; Continuity and control, Posts 03–05; Accountability, Posts 06–07; Putting it together, Post 08."}
 
-Next time: **Inside Real Team Agents** — how Shopify, Ramp, Stripe, Anthropic, OpenAI and GitHub have implemented team-agent workflows, and what their reported results can and cannot tell us.
+Continue with [Part 2: Inside Real Team Agents](../team-agents-part-2/index.qmd) — how Shopify, Ramp, Stripe, Anthropic, OpenAI and GitHub have implemented team-agent workflows, and what their reported results can and cannot tell us.
 
 ## Related posts
 

@@ -1,0 +1,129 @@
+---
+title: "Team Agents, Part 2: Inside Real Team Agents"
+description: "A technical comparison of how six companies are building team agents, through continuity, control and accountability."
+date: 2026-11-04
+author: "Peng Bin"
+categories:
+  - AI Agents
+  - Software Engineering
+  - Agentic AI
+toc: true
+format: html
+---
+
+Looking at how companies are building AI coding agents, I see a shift from using them in individual developer sessions towards integrating them into shared software development workflows. Colleagues can assign tasks, contribute context, follow progress and review the resulting work together.
+
+The approaches are different. Shopify, Anthropic and Ramp emphasise different forms of shared interaction and collaboration. Stripe focuses on unattended coding, while OpenAI makes reusable agents available across an organisation. GitHub integrates agents into repository workflows and automations. In [Part 1](../team-agents-part-1/index.qmd), I introduced three requirements for reliable team agents: **continuity, control and accountability**. Here, I examine how these six implementations address those requirements, and what their reported results can and cannot tell us.
+
+## Shopify: River and Aquifer
+
+Shopify's River is a coding agent that employees interact with through shared Slack channels. Colleagues can assign tasks, contribute context and redirect the agent while it works. River also draws on engineering knowledge in Shopify's World monorepo, including reusable skills, conventions, runbooks and `AGENTS.md` files. Knowledge gained from one task can be incorporated into these shared resources for later use.
+
+Underneath River is Aquifer, Shopify's internal platform for running AI agents. It separates three components. The **session** has a durable identity and an append-only event log stored in PostgreSQL. The **harness** reads that history, calls the model and produces requests for actions, called *tool intents*. The **sandbox** provides the environment where those actions, such as reading files, running commands and testing code, are executed.
+
+When someone interacts with River, Aquifer creates a temporary *session cell* that runs the agent harness. When the session becomes idle, the cell exits. A later interaction can start a new cell on another host and recover the session history from PostgreSQL. The conversation therefore survives without requiring its original execution process to remain running.
+
+Keeping the harness outside the sandbox provides three benefits. **Safety:** destructive commands inside the sandbox do not directly affect the harness. **Replaceability:** Shopify can change the model or harness implementation without necessarily changing the code execution environment. **Observability:** the agent's decision stream can be monitored outside the sandbox.
+
+Aquifer also supports reusable agent profiles, defined through prompts, skills, extensions, sandbox policies and model defaults. These profiles can operate interactively, respond to automation triggers or execute short-lived jobs. Rather than building separate infrastructure for every agent, Shopify can reuse the same platform across different workflows.
+
+*Source: [Shopify Engineering, Under the River](https://shopify.engineering/under-the-river).*
+
+## Anthropic: Claude Tag
+
+Anthropic's Claude Tag brings a shared agent into Slack. Within each channel, team members can mention @Claude to delegate tasks, contribute context and follow its progress. Another colleague can continue the conversation without starting from scratch. Claude also builds context from interactions in the channels and workspace it can access.
+
+Its distinctive feature is *agent identity*. Rather than using the permissions of whichever person mentions it, Claude Tag acts through its own administrator-provisioned identity. It posts in Slack as Claude and creates pull requests through the Claude GitHub App. Public channels in a workspace share a workspace-level identity, while private channels have separate identities, memory and access boundaries.
+
+This design has an important security implication. Someone who cannot access a repository directly may still be able to ask Claude to retrieve information from it if the agent's identity has the necessary permission. Administrators therefore need to manage not only who can interact with Claude, but also what its shared identity can access.
+
+Anthropic also provides ways to trace Claude Tag's work. Organisation owners can inspect scheduled tasks and network activity through its Activity page. GitHub commits and pull requests identify the Claude GitHub App as their author and link back to the originating Slack thread. These records help teams understand what the agent did and where a request came from, although they do not by themselves establish who is responsible for approving the result.
+
+*Sources: [Anthropic, Agent identity in Claude Tag](https://claude.com/resources/articles/agent-identity-access-model); [Claude Tag documentation](https://support.claude.com/en/articles/15594475-what-is-claude-tag).*
+
+## Ramp: Inspect
+
+Ramp's Inspect is a cloud-based coding agent designed for collaborative software development. Developers can assign tasks through Slack, GitHub, Linear or the web. Unlike agents that work privately with one developer, Inspect sessions are multiplayer by default. Colleagues can join while an agent is working, contribute context, identify constraints or redirect its approach before reviewing the resulting pull request.
+
+Each session runs in an isolated cloud environment using Modal Sandboxes, equipped with development tools and services similar to those on a Ramp engineer's laptop. Ramp prepares these environments in advance by cloning repositories, installing dependencies and saving filesystem snapshots, allowing agents to start working quickly. Inspect can run tests, inspect application telemetry through tools such as Datadog and Sentry, and query feature flags through LaunchDarkly. For frontend changes, it can use a browser to inspect the application and capture screenshots or live previews. These provide additional evidence for reviewing the generated code, although they do not guarantee its correctness.
+
+Ramp also addresses collaboration and attribution. Changes are synchronised with the session, allowing developers to switch devices or hand work to colleagues. Its engineering design discusses tracking who submits prompts that lead to code changes. For GitHub integration, Ramp describes using a developer's credentials to create pull requests on their behalf, rather than attributing all submissions to a shared agent account. This helps preserve the distinction between the person submitting a change and the person approving it.
+
+Ramp reports substantial adoption. In October 2026, the company stated that 99% of its engineering, design and product teams had used Inspect during the previous month, and that Inspect accounted for 74% of merged pull requests. It also reported a sixfold increase in code shipped per builder compared with a year earlier. These figures demonstrate widespread use and increased output, but do not establish how much improvement Inspect caused or whether software quality improved.
+
+While Ramp emphasises collaboration during coding, Stripe's Minions focus on unattended execution, carrying tasks through implementation and automated verification before handing the results to developers for review.
+
+*Sources: [Ramp, Introducing Inspect](https://ramp.com/blog/introducing-inspect); [Ramp Engineering, Why We Built Our Own Background Agent](https://engineering.ramp.com/post/why-we-built-our-background-agent).*
+
+## Stripe: Minions
+
+Stripe's Minions are coding agents designed to complete tasks unattended. An engineer can start a Minion from a Slack conversation, where it reads the discussion and relevant links to understand the request. The agent then works independently, modifying code, running checks and preparing changes for human review. Developers can launch several Minions in parallel without supervising each step.
+
+Each Minion runs in an isolated development environment called a *devbox*. These are AWS EC2 instances containing Stripe's repositories, development tools and services. Stripe keeps a pool of prewarmed devboxes, with repositories cloned, caches prepared and services running, allowing an agent to obtain a ready-to-use environment in approximately 10 seconds. The devboxes operate in a QA environment without access to production services, real customer data or arbitrary internet connections. This limits the impact of mistakes and makes unattended execution more practical.
+
+Stripe built its Minion harness by adapting Block's open-source Goose coding agent. Its distinctive feature is a workflow mechanism called *blueprints*, which combines agent-driven decisions with deterministic engineering steps. For example, *Implement task* lets the model decide how to change the code, while *Run configured linters* executes predefined checks. Similarly, *Fix CI failures* allows the agent to investigate problems, while *Push changes* follows a predefined procedure. This ensures that required operations do not depend entirely on the model remembering to perform them.
+
+Minions also receive contextual knowledge and access to internal tools. Repository-specific instructions provide coding conventions and preferred libraries, loaded selectively according to the files being examined. For information beyond the repository, Stripe uses *Toolshed*, a shared MCP server offering nearly 500 tools as of February 2026. Minions receive only a curated subset by default. Stripe also applies an internal security framework intended to prevent destructive actions through connected tools, recognising that sandbox isolation alone cannot secure external systems.
+
+Automated verification has explicit limits. Minions run local linting checks before pushing changes, then receive feedback from relevant CI tests. They may attempt to fix failures, but Stripe allows at most two CI rounds before returning the work to a developer. This bounds the cost of repeated attempts and preserves a human review point.
+
+In February 2026, Stripe reported that more than 1,300 fully Minion-produced pull requests were merged each week following human review. This demonstrates substantial use of unattended coding, but does not establish individual run success rates or long-term software quality improvements.
+
+Stripe's approach illustrates how autonomous coding depends on engineering the environment, tools and workflow around the model. OpenAI's Workspace Agents take the discussion beyond coding, focusing on reusable agents shared across organisational workflows.
+
+*Sources: [Stripe, Minions, Part 1](https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents); [Stripe, Minions, Part 2](https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2).*
+
+## OpenAI: Workspace Agents
+
+OpenAI's Workspace Agents allow teams to create reusable agents with shared instructions, skills, knowledge files and connections to external tools. Instead of each employee configuring an agent for the same task, a team can build, test and publish one agent for colleagues to use through ChatGPT or Slack. OpenAI describes an accounting team that uses an agent for month-end closing, preparing journal entries, reconciliations, variance analyses and supporting workpapers for review.
+
+An important architectural distinction is how these agents access external systems. OpenAI supports two authentication models. With an *end-user account*, an agent uses each employee's own connection. With an *agent-owned account*, it uses a shared connection that authorised employees can invoke. This matters because a shared connection may have permissions that individual users do not possess. Agents deployed to Slack require shared authentication for their application connections.
+
+OpenAI also separates permission to use an agent from permission to perform actions. Workspace administrators control who can create, publish and use agents, while agent configurations restrict available tools and actions. Sensitive operations can require human approval. Usage analytics and execution records provide additional oversight, although they do not establish whether every agent decision is appropriate.
+
+Workspace Agents can execute scheduled tasks in the cloud and use memory across interactions. Teams can maintain them through collaborative editing and version history, reducing dependence on their original creators. However, persistent execution and shared maintenance do not guarantee accurate knowledge or clear responsibility. Organisations still need to decide who owns each agent, keeps its instructions current and reviews failures.
+
+GitHub approaches shared agents through software repositories, making issues, pull requests and repository-owned automations the basis for collaboration.
+
+*Sources: [OpenAI, Introducing Workspace Agents](https://openai.com/index/introducing-workspace-agents-in-chatgpt/); [Workspace Agents documentation](https://help.openai.com/en/articles/20001143-chatgpt-workspace-agents-for-enterprise-and-business).*
+
+## GitHub: Copilot Coding Agents and Shared Automations
+
+GitHub's Copilot coding agent integrates AI-assisted development into existing repository workflows. Developers can assign an issue to Copilot, which works asynchronously in a cloud environment to modify code and run tests. Assigning an issue automatically creates a pull request where colleagues can follow progress, review changes and request revisions through comments or `@copilot` mentions. This keeps agent-generated work connected to the team's normal development and review process.
+
+Copilot Automations extend this approach beyond individually assigned tasks. Teams configure a prompt, a trigger and a set of permitted tools. An automation might run every night to investigate failing tests, start when a new issue is opened or respond when a pull request becomes ready for review. External systems can also initiate automations through an API. When triggered, GitHub starts a cloud agent session that can investigate problems, update issues or prepare pull requests.
+
+GitHub's newer *shared automations* address a different challenge: ownership. Personal automations depend on their creator's account, while shared automations belong to the repository. Developers with write access can update their instructions, triggers and tools, and the workflows can continue operating after their original creator leaves. Shared automations act under Copilot's GitHub identity, with AI credits billed to the repository owner. GitHub provides configuration revision history, although automation definitions are stored separately from repository code and are not automatically reviewed through Git pull requests.
+
+Security controls operate at several levels. Teams select which tools an automation can use. GitHub tools are scoped to the configured repository, while MCP tools may access other systems according to their credentials. By default, events triggered by users without repository write access do not start automations. Pull requests remain subject to applicable code review requirements. GitHub Actions workflows triggered by automation-created pull requests may also require separate approval before execution. Agent session logs provide visibility into what an automation did, although they do not guarantee that its changes are correct.
+
+As of November 2026, Copilot Automations are available only for private and internal repositories. GitHub's approach illustrates how repository ownership, access controls and existing review processes can help make agent workflows maintainable beyond individual developers.
+
+*Sources: [GitHub, Copilot Automations documentation](https://docs.github.com/en/copilot/concepts/agent-capabilities/agent-powered-workflows-and-operations/about-automations); [GitHub, Shared Copilot Automations announcement](https://github.blog/changelog/2026-10-28-build-shared-workflows-for-your-team-with-copilot-automations/).*
+
+## How the Six Approaches Compare
+
+The six implementations address similar challenges through different engineering choices. Shopify emphasises durable sessions, Anthropic shared identity, Ramp collaborative coding, Stripe controlled unattended execution, OpenAI reusable organisational agents and GitHub repository-owned workflows. The table below compares their documented mechanisms rather than ranking products or treating those mechanisms as evidence of successful long-term outcomes.
+
+| Implementation | Continuity | Control | Accountability |
+|---|---|---|---|
+| **Shopify River / Aquifer** | Durable sessions, event history and reusable profiles | Separate harness and sandbox, execution boundaries | Shared Slack interactions and observable agent activity |
+| **Anthropic Claude Tag** | Shared channel context and memory | Independent agent identity, administrator-managed permissions | Activity records, GitHub attribution and links to originating Slack threads |
+| **Ramp Inspect** | Synchronised multiplayer sessions | Isolated cloud environments and verification tools | Prompt authorship tracking in Ramp's engineering design and developer-attributed pull requests |
+| **Stripe Minions** | Unattended task execution with repository-specific knowledge | Restricted devboxes, curated MCP tools, blueprints and bounded CI | Human review of Minion-produced changes |
+| **OpenAI Workspace Agents** | Reusable workflows, memory, scheduled execution and shared maintenance | Authentication models, tool permissions and approvals | Usage records, version history and administrative oversight |
+| **GitHub Copilot** | Issue-to-PR workflow and repository-owned shared automations | Tool restrictions, trigger protections and review requirements | Agent session logs, Copilot attribution and repository-level ownership |
+
+## Evidence and Unresolved Questions
+
+The reported adoption of these agents is substantial, particularly at Ramp and Stripe. However, company-reported pull-request volumes and code output do not establish how much productivity improvement the agents caused, whether software quality improved or whether their changes will be easier to maintain.
+
+The architectures also leave important questions unanswered. Durable sessions preserve history, but do they retain the decisions needed for future maintenance? Sandboxes and approvals restrict agent actions, but how well do they handle unexpected behaviour or malicious inputs? Activity records make work traceable, but who takes responsibility when an agent-generated change causes a production incident? These questions require evidence about longer-term engineering outcomes, not just successful agent execution.
+
+## Conclusion
+
+Looking across these six implementations, I find that much of the interesting engineering work is happening around the model. Durable sessions, shared knowledge, isolated execution environments, permission boundaries and review workflows are what make agents usable beyond individual coding sessions.
+
+But completing a task is only part of software engineering. Someone still needs to understand the resulting code, review the decisions behind it and maintain it months later. If an agent accelerates implementation but leaves behind changes that nobody fully understands or owns, the team may simply be exchanging coding effort for future maintenance and coordination problems.
+
+For me, the real challenge of team agents is not how much work we can delegate to AI. It is how we organise collaboration between people and agents so that knowledge remains available, actions stay controlled and responsibility remains clear. That is what will determine whether team agents become a sustainable part of software engineering.
